@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		08E0C47E2261178000E2ACAC /* KNNDTW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0C47D2261178000E2ACAC /* KNNDTW.swift */; };
+		08E0C484226148BB00E2ACAC /* data_csv in Resources */ = {isa = PBXBuildFile; fileRef = 08E0C483226148BB00E2ACAC /* data_csv */; };
 		08EB7422225D30B00079FFD5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EB7421225D30B00079FFD5 /* AppDelegate.swift */; };
 		08EB7424225D30B00079FFD5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EB7423225D30B00079FFD5 /* ViewController.swift */; };
 		08EB7427225D30B00079FFD5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08EB7425225D30B00079FFD5 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		08E0C47D2261178000E2ACAC /* KNNDTW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNNDTW.swift; sourceTree = "<group>"; };
+		08E0C483226148BB00E2ACAC /* data_csv */ = {isa = PBXFileReference; lastKnownFileType = folder; path = data_csv; sourceTree = "<group>"; };
 		08EB741E225D30B00079FFD5 /* GestureClassifier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GestureClassifier.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08EB7421225D30B00079FFD5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		08EB7423225D30B00079FFD5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -40,6 +42,7 @@
 		08EB7415225D30AF0079FFD5 = {
 			isa = PBXGroup;
 			children = (
+				08E0C483226148BB00E2ACAC /* data_csv */,
 				08EB7420225D30B00079FFD5 /* GestureClassifier */,
 				08EB741F225D30B00079FFD5 /* Products */,
 			);
@@ -126,6 +129,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				08EB742C225D30B30079FFD5 /* LaunchScreen.storyboard in Resources */,
+				08E0C484226148BB00E2ACAC /* data_csv in Resources */,
 				08EB7429225D30B30079FFD5 /* Assets.xcassets in Resources */,
 				08EB7427225D30B00079FFD5 /* Main.storyboard in Resources */,
 			);
