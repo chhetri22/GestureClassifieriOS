@@ -37,10 +37,10 @@ class Sample {
         self.number = number
     }
     
-    var accX = Array<Int>()
-    var accY = Array<Int>()
-    var accZ = Array<Int>()
-    var gyrX = Array<Int>()
-    var gyrY = Array<Int>()
-    var gyrZ = Array<Int>()
+    var accX = Array<Float>()
+    var accY = Array<Float>()
+    var accZ = Array<Float>()
+    var gyrX = Array<Float>()
+    var gyrY = Array<Float>()
+    var gyrZ = Array<Float>()
 }

@@ -49,7 +49,7 @@ class Helper{
         dataArray.removeFirst(1)
         for row in dataArray {
             if row.count > 0 {
-                let rowArray = row.components(separatedBy: ",").map {Int($0)}
+                let rowArray = row.components(separatedBy: ",").map {Float($0)}
                 sample.accX.append(rowArray[0]!)
                 sample.accY.append(rowArray[1]!)
                 sample.accZ.append(rowArray[2]!)
@@ -58,6 +58,7 @@ class Helper{
                 sample.gyrZ.append(rowArray[5]!)
             }
         }
+        
     }
     static func createDataDict(path:String) -> Dictionary<String, Participant> {
         var data: [String: Participant] = [:]

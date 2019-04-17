@@ -16,6 +16,8 @@ func evaluateKNN3d(data:Dictionary<String, Participant>) {
     
     var training_samples: [knn_curve_label_pair_3d] = [knn_curve_label_pair_3d]()
     
+    
+    // add training data
     for participantString in participants {
         let participant = data[participantString]
         
@@ -27,9 +29,9 @@ func evaluateKNN3d(data:Dictionary<String, Participant>) {
         for (label, samples) in sampleMap {
             for sample in samples {
                 if sample.number <= 8 {
-                    let xVals:[Float] = sample.gyrX.map { Float($0) }
-                    let yVals:[Float] = sample.gyrY.map { Float($0) }
-                    let zVals:[Float] = sample.gyrZ.map { Float($0) }
+                    let xVals:[Float] = sample.gyrX
+                    let yVals:[Float] = sample.gyrY
+                    let zVals:[Float] = sample.gyrZ
                     training_samples.append(knn_curve_label_pair_3d(curveAccX: xVals, curveAccY: yVals, curveAccZ: zVals , label: label))
                 }
             }
@@ -44,68 +46,35 @@ func evaluateKNN3d(data:Dictionary<String, Participant>) {
     
     var correct: Float = 0
     var incorrect: Float = 0
-    
     var certaintyTotal: Float = 0
     
     for participantString in participants {
         let participant = data[participantString]
-        for leftSample in participant!.leftSamples {
-            if leftSample.number > 8 {
-                let xVals:[Float] = leftSample.gyrX.map { Float($0) }
-                let yVals:[Float] = leftSample.gyrY.map { Float($0) }
-                let zVals:[Float] = leftSample.gyrZ.map { Float($0) }
-                
-                let prediction: knn_certainty_label_pair_3d = knn.predict(curve_to_test_x: xVals, curve_to_test_y: yVals, curve_to_test_z: zVals)
-                
-                if prediction.label == "left" {
-                    correct += 1
-                } else {
-                    incorrect += 1
+        
+        var sampleMap = [String : Array<Sample>]()
+        sampleMap["left"] = participant!.leftSamples
+        sampleMap["right"] = participant!.rightSamples
+        sampleMap["front"] = participant!.frontSamples
+        
+        for (label, samples) in sampleMap {
+            for sample in samples {
+                if sample.number > 8 {
+                    let xVals:[Float] = sample.gyrX
+                    let yVals:[Float] = sample.gyrY
+                    let zVals:[Float] = sample.gyrZ
+                    
+                    let prediction: knn_certainty_label_pair_3d = knn.predict(curve_to_test_x: xVals, curve_to_test_y: yVals, curve_to_test_z: zVals)
+                    
+                    if prediction.label == label {
+                        correct += 1
+                    } else {
+                        incorrect += 1
+                    }
+                    
+                    certaintyTotal += prediction.probability
+                    
+                    print(label,": predicted " + prediction.label, "with ", prediction.probability*100,"% certainty")
                 }
-                
-                certaintyTotal += prediction.probability
-                
-                print("LEFT: predicted " + prediction.label, "with ", prediction.probability*100,"% certainty")
-            }
-        }
-        for rightSample in participant!.rightSamples {
-            if rightSample.number > 8 {
-                let xVals:[Float] = rightSample.gyrX.map { Float($0) }
-                let yVals:[Float] = rightSample.gyrY.map { Float($0) }
-                let zVals:[Float] = rightSample.gyrZ.map { Float($0) }
-                
-                let prediction: knn_certainty_label_pair_3d = knn.predict(curve_to_test_x: xVals, curve_to_test_y: yVals, curve_to_test_z: zVals)
-                
-                if prediction.label == "right" {
-                    correct += 1
-                } else {
-                    incorrect += 1
-                }
-                
-                certaintyTotal += prediction.probability
-                
-                print("RIGHT: predicted " + prediction.label, "with ", prediction.probability*100,"% certainty")
-            }
-        }
-        for frontSample in participant!.frontSamples {
-            if frontSample.number > 8 {
-                
-                let xVals:[Float] = frontSample.gyrX.map { Float($0) }
-                let yVals:[Float] = frontSample.gyrY.map { Float($0) }
-                let zVals:[Float] = frontSample.gyrZ.map { Float($0) }
-                
-                let prediction: knn_certainty_label_pair_3d = knn.predict(curve_to_test_x: xVals, curve_to_test_y: yVals, curve_to_test_z: zVals)
-                
-                if prediction.label == "front" {
-                    correct += 1
-                } else {
-                    incorrect += 1
-                }
-                
-                certaintyTotal += prediction.probability
-                
-                print("FRONT: predicted " + prediction.label, "with ", prediction.probability*100,"% certainty")
-                
             }
         }
     }
