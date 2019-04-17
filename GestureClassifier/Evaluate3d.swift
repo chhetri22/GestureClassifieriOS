@@ -9,33 +9,43 @@
 import Foundation
 
 
-func evaluateKNN(data:Dictionary<String, Participant>) {
+func evaluateKNN3d(data:Dictionary<String, Participant>) {
     
     let participants = ["P5", "P1", "P12", "P11", "P7", "P6", "P2", "P8", "P4", "P3", "P9", "P10"]
     //        let participants = ["P5"]
     
-    var training_samples: [knn_curve_label_pair] = [knn_curve_label_pair]()
+    var training_samples: [knn_curve_label_pair_3d] = [knn_curve_label_pair_3d]()
     
     for participantString in participants {
         let participant = data[participantString]
+        
         for leftSample in participant!.leftSamples {
             if leftSample.number <= 8 {
-                training_samples.append(knn_curve_label_pair(curve: leftSample.accZ.map { Float($0) }, label: "left"))
+                let xVals:[Float] = leftSample.gyrX.map { Float($0) }
+                let yVals:[Float] = leftSample.gyrY.map { Float($0) }
+                let zVals:[Float] = leftSample.gyrZ.map { Float($0) }
+                training_samples.append(knn_curve_label_pair_3d(curveAccX: xVals, curveAccY: yVals, curveAccZ: zVals , label: "left"))
             }
         }
         for rightSample in participant!.rightSamples {
             if rightSample.number <= 8 {
-                training_samples.append(knn_curve_label_pair(curve: rightSample.accZ.map { Float($0) }, label: "right"))
+                let xVals:[Float] = rightSample.gyrX.map { Float($0) }
+                let yVals:[Float] = rightSample.gyrY.map { Float($0) }
+                let zVals:[Float] = rightSample.gyrZ.map { Float($0) }
+                training_samples.append(knn_curve_label_pair_3d(curveAccX: xVals, curveAccY: yVals, curveAccZ: zVals , label: "right"))
             }
         }
         for frontSample in participant!.frontSamples {
             if frontSample.number <= 8 {
-                training_samples.append(knn_curve_label_pair(curve: frontSample.accZ.map { Float($0) }, label: "front"))
+                let xVals:[Float] = frontSample.gyrX.map { Float($0) }
+                let yVals:[Float] = frontSample.gyrY.map { Float($0) }
+                let zVals:[Float] = frontSample.gyrZ.map { Float($0) }
+                training_samples.append(knn_curve_label_pair_3d(curveAccX: xVals, curveAccY: yVals, curveAccZ: zVals , label: "front"))
             }
         }
     }
     
-    let knn: KNNDTW = KNNDTW()
+    let knn: KNNDTW_3D = KNNDTW_3D()
     
     knn.configure(neighbors: 3, max_warp: 0) //max_warp isn't implemented yet
     
@@ -48,10 +58,13 @@ func evaluateKNN(data:Dictionary<String, Participant>) {
     
     for participantString in participants {
         let participant = data[participantString]
-        print(participant!.leftSamples.count)
         for leftSample in participant!.leftSamples {
             if leftSample.number > 8 {
-                let prediction: knn_certainty_label_pair = knn.predict(curve_to_test: leftSample.accZ.map { Float($0) })
+                let xVals:[Float] = leftSample.gyrX.map { Float($0) }
+                let yVals:[Float] = leftSample.gyrY.map { Float($0) }
+                let zVals:[Float] = leftSample.gyrZ.map { Float($0) }
+                
+                let prediction: knn_certainty_label_pair_3d = knn.predict(curve_to_test_x: xVals, curve_to_test_y: yVals, curve_to_test_z: zVals)
                 
                 if prediction.label == "left" {
                     correct += 1
@@ -66,7 +79,11 @@ func evaluateKNN(data:Dictionary<String, Participant>) {
         }
         for rightSample in participant!.rightSamples {
             if rightSample.number > 8 {
-                let prediction: knn_certainty_label_pair = knn.predict(curve_to_test: rightSample.accZ.map { Float($0) })
+                let xVals:[Float] = rightSample.gyrX.map { Float($0) }
+                let yVals:[Float] = rightSample.gyrY.map { Float($0) }
+                let zVals:[Float] = rightSample.gyrZ.map { Float($0) }
+                
+                let prediction: knn_certainty_label_pair_3d = knn.predict(curve_to_test_x: xVals, curve_to_test_y: yVals, curve_to_test_z: zVals)
                 
                 if prediction.label == "right" {
                     correct += 1
@@ -81,7 +98,12 @@ func evaluateKNN(data:Dictionary<String, Participant>) {
         }
         for frontSample in participant!.frontSamples {
             if frontSample.number > 8 {
-                let prediction: knn_certainty_label_pair = knn.predict(curve_to_test: frontSample.accZ.map { Float($0) })
+                
+                let xVals:[Float] = frontSample.gyrX.map { Float($0) }
+                let yVals:[Float] = frontSample.gyrY.map { Float($0) }
+                let zVals:[Float] = frontSample.gyrZ.map { Float($0) }
+                
+                let prediction: knn_certainty_label_pair_3d = knn.predict(curve_to_test_x: xVals, curve_to_test_y: yVals, curve_to_test_z: zVals)
                 
                 if prediction.label == "front" {
                     correct += 1
@@ -98,7 +120,6 @@ func evaluateKNN(data:Dictionary<String, Participant>) {
     }
     let total: Float = correct+incorrect
     let accuracy: Float = correct/total
-    print(correct, " ", incorrect)
     print("Accuracy: ",accuracy)
     
     print("Average Certainty: ", certaintyTotal/Float(total))

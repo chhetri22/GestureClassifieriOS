@@ -13,8 +13,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         let data = Helper.createDataDict(path: "data_csv")
-        print(data.keys)
-        evaluateKNN(data: data)
+        evaluateKNN3d(data: data)
 //        testKNN(data: data)
     }
 }
