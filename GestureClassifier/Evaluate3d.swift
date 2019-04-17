@@ -19,28 +19,19 @@ func evaluateKNN3d(data:Dictionary<String, Participant>) {
     for participantString in participants {
         let participant = data[participantString]
         
-        for leftSample in participant!.leftSamples {
-            if leftSample.number <= 8 {
-                let xVals:[Float] = leftSample.gyrX.map { Float($0) }
-                let yVals:[Float] = leftSample.gyrY.map { Float($0) }
-                let zVals:[Float] = leftSample.gyrZ.map { Float($0) }
-                training_samples.append(knn_curve_label_pair_3d(curveAccX: xVals, curveAccY: yVals, curveAccZ: zVals , label: "left"))
-            }
-        }
-        for rightSample in participant!.rightSamples {
-            if rightSample.number <= 8 {
-                let xVals:[Float] = rightSample.gyrX.map { Float($0) }
-                let yVals:[Float] = rightSample.gyrY.map { Float($0) }
-                let zVals:[Float] = rightSample.gyrZ.map { Float($0) }
-                training_samples.append(knn_curve_label_pair_3d(curveAccX: xVals, curveAccY: yVals, curveAccZ: zVals , label: "right"))
-            }
-        }
-        for frontSample in participant!.frontSamples {
-            if frontSample.number <= 8 {
-                let xVals:[Float] = frontSample.gyrX.map { Float($0) }
-                let yVals:[Float] = frontSample.gyrY.map { Float($0) }
-                let zVals:[Float] = frontSample.gyrZ.map { Float($0) }
-                training_samples.append(knn_curve_label_pair_3d(curveAccX: xVals, curveAccY: yVals, curveAccZ: zVals , label: "front"))
+        var sampleMap = [String : Array<Sample>]()
+        sampleMap["left"] = participant!.leftSamples
+        sampleMap["right"] = participant!.rightSamples
+        sampleMap["front"] = participant!.frontSamples
+        
+        for (label, samples) in sampleMap {
+            for sample in samples {
+                if sample.number <= 8 {
+                    let xVals:[Float] = sample.gyrX.map { Float($0) }
+                    let yVals:[Float] = sample.gyrY.map { Float($0) }
+                    let zVals:[Float] = sample.gyrZ.map { Float($0) }
+                    training_samples.append(knn_curve_label_pair_3d(curveAccX: xVals, curveAccY: yVals, curveAccZ: zVals , label: label))
+                }
             }
         }
     }
