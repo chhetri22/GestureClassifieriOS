@@ -29,10 +29,7 @@ func evaluateKNN3d(data:Dictionary<String, Participant>) {
         for (label, samples) in sampleMap {
             for sample in samples {
                 if sample.number <= 8 {
-                    let xVals:[Float] = sample.gyrX
-                    let yVals:[Float] = sample.gyrY
-                    let zVals:[Float] = sample.gyrZ
-                    training_samples.append(knn_curve_label_pair_3d(curveAccX: xVals, curveAccY: yVals, curveAccZ: zVals , label: label))
+                    training_samples.append(knn_curve_label_pair_3d(curveAccX: sample.accX, curveAccY: sample.accY, curveAccZ: sample.accZ , curveGyrX: sample.gyrX,curveGyrY: sample.gyrY, curveGyrZ: sample.gyrZ, label: label))
                 }
             }
         }
@@ -56,14 +53,13 @@ func evaluateKNN3d(data:Dictionary<String, Participant>) {
         sampleMap["right"] = participant!.rightSamples
         sampleMap["front"] = participant!.frontSamples
         
+        print(participantString)
+        
         for (label, samples) in sampleMap {
             for sample in samples {
                 if sample.number > 8 {
-                    let xVals:[Float] = sample.gyrX
-                    let yVals:[Float] = sample.gyrY
-                    let zVals:[Float] = sample.gyrZ
                     
-                    let prediction: knn_certainty_label_pair_3d = knn.predict(curve_to_test_x: xVals, curve_to_test_y: yVals, curve_to_test_z: zVals)
+                    let prediction: knn_certainty_label_pair_3d = knn.predict(curveToTestAccX: sample.accX, curveToTestAccY: sample.accY, curveToTestAccZ: sample.accZ, curveToTestGyrX: sample.gyrX, curveToTestGyrY: sample.gyrY, curveToTestGyrZ: sample.gyrZ)
                     
                     if prediction.label == label {
                         correct += 1

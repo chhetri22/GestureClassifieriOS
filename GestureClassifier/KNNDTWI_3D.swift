@@ -146,7 +146,7 @@ public class KNNDTW_3D: NSObject {
     
     
     
-    public func predict(curve_to_test_x: [Float], curve_to_test_y: [Float], curve_to_test_z: [Float]) -> knn_certainty_label_pair_3d {
+    public func predict(curveToTestAccX: [Float], curveToTestAccY: [Float], curveToTestAccZ: [Float], curveToTestGyrX: [Float], curveToTestGyrY: [Float], curveToTestGyrZ: [Float]) -> knn_certainty_label_pair_3d {
         
         if (self.n_neighbors == 0) {
             self.n_neighbors = Int(sqrt(Float(self.curve_label_pairs_3d.count)))
@@ -160,7 +160,7 @@ public class KNNDTW_3D: NSObject {
         
         for pair in self.curve_label_pairs_3d {
             
-            let totalDistance = self.dtw_cost(y: pair.curveAccX, x: curve_to_test_x) + self.dtw_cost(y: pair.curveAccY, x: curve_to_test_y) + self.dtw_cost(y: pair.curveAccZ, x: curve_to_test_z)
+            let totalDistance = self.dtw_cost(y: pair.curveAccX, x: curveToTestAccX) + self.dtw_cost(y: pair.curveAccY, x: curveToTestAccY) + self.dtw_cost(y: pair.curveAccZ, x: curveToTestAccZ) + self.dtw_cost(y: pair.curveGyrX, x: curveToTestGyrX) + self.dtw_cost(y: pair.curveGyrY, x: curveToTestGyrY) + self.dtw_cost(y: pair.curveGyrZ, x: curveToTestGyrZ)
             
             distances.append(knn_distance_label_pair(distance: totalDistance, label: pair.label))
         }
@@ -223,6 +223,9 @@ public struct knn_curve_label_pair_3d {
     let curveAccX: [Float]
     let curveAccY: [Float]
     let curveAccZ: [Float]
+    let curveGyrX: [Float]
+    let curveGyrY: [Float]
+    let curveGyrZ: [Float]
     let label: String
 }
 
