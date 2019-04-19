@@ -8,13 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		08B142962267A09C0012D326 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B142952267A09C0012D326 /* Helper.swift */; };
-		08B142982267ABAB0012D326 /* Evaluate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B142972267ABAB0012D326 /* Evaluate.swift */; };
-		08B1429A2267AC500012D326 /* KNNDTWTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B142992267AC500012D326 /* KNNDTWTest.swift */; };
-		08B1429C2267ADE50012D326 /* KNNDTWI_3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B1429B2267ADE50012D326 /* KNNDTWI_3D.swift */; };
-		08B1429E2267C5210012D326 /* Evaluate3d.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B1429D2267C5210012D326 /* Evaluate3d.swift */; };
+		08B1429C2267ADE50012D326 /* KNNDTW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B1429B2267ADE50012D326 /* KNNDTW.swift */; };
+		08B1429E2267C5210012D326 /* Evaluate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B1429D2267C5210012D326 /* Evaluate.swift */; };
 		08B142A02268F8580012D326 /* ExoEarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B1429F2268F8570012D326 /* ExoEarController.swift */; };
 		08B142A82268FEB60012D326 /* RealTimeClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B142A72268FEB60012D326 /* RealTimeClassifier.swift */; };
-		08E0C47E2261178000E2ACAC /* KNNDTW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E0C47D2261178000E2ACAC /* KNNDTW.swift */; };
 		08E0C484226148BB00E2ACAC /* data_csv in Resources */ = {isa = PBXBuildFile; fileRef = 08E0C483226148BB00E2ACAC /* data_csv */; };
 		08EB7422225D30B00079FFD5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EB7421225D30B00079FFD5 /* AppDelegate.swift */; };
 		08EB7424225D30B00079FFD5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EB7423225D30B00079FFD5 /* ViewController.swift */; };
@@ -25,13 +22,10 @@
 
 /* Begin PBXFileReference section */
 		08B142952267A09C0012D326 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
-		08B142972267ABAB0012D326 /* Evaluate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Evaluate.swift; sourceTree = "<group>"; };
-		08B142992267AC500012D326 /* KNNDTWTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNNDTWTest.swift; sourceTree = "<group>"; };
-		08B1429B2267ADE50012D326 /* KNNDTWI_3D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNNDTWI_3D.swift; sourceTree = "<group>"; };
-		08B1429D2267C5210012D326 /* Evaluate3d.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Evaluate3d.swift; sourceTree = "<group>"; };
+		08B1429B2267ADE50012D326 /* KNNDTW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNNDTW.swift; sourceTree = "<group>"; };
+		08B1429D2267C5210012D326 /* Evaluate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Evaluate.swift; sourceTree = "<group>"; };
 		08B1429F2268F8570012D326 /* ExoEarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExoEarController.swift; sourceTree = "<group>"; };
 		08B142A72268FEB60012D326 /* RealTimeClassifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealTimeClassifier.swift; sourceTree = "<group>"; };
-		08E0C47D2261178000E2ACAC /* KNNDTW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNNDTW.swift; sourceTree = "<group>"; };
 		08E0C483226148BB00E2ACAC /* data_csv */ = {isa = PBXFileReference; lastKnownFileType = folder; path = data_csv; sourceTree = "<group>"; };
 		08EB741E225D30B00079FFD5 /* GestureClassifier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GestureClassifier.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08EB7421225D30B00079FFD5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -77,13 +71,10 @@
 				08EB7423225D30B00079FFD5 /* ViewController.swift */,
 				08B142952267A09C0012D326 /* Helper.swift */,
 				08B142A72268FEB60012D326 /* RealTimeClassifier.swift */,
-				08B142972267ABAB0012D326 /* Evaluate.swift */,
-				08B1429D2267C5210012D326 /* Evaluate3d.swift */,
-				08B142992267AC500012D326 /* KNNDTWTest.swift */,
+				08B1429D2267C5210012D326 /* Evaluate.swift */,
 				08EB7425225D30B00079FFD5 /* Main.storyboard */,
 				08EB7428225D30B30079FFD5 /* Assets.xcassets */,
-				08E0C47D2261178000E2ACAC /* KNNDTW.swift */,
-				08B1429B2267ADE50012D326 /* KNNDTWI_3D.swift */,
+				08B1429B2267ADE50012D326 /* KNNDTW.swift */,
 				08B1429F2268F8570012D326 /* ExoEarController.swift */,
 				08EB742A225D30B30079FFD5 /* LaunchScreen.storyboard */,
 				08EB742D225D30B30079FFD5 /* Info.plist */,
@@ -165,14 +156,11 @@
 			files = (
 				08EB7424225D30B00079FFD5 /* ViewController.swift in Sources */,
 				08B142A02268F8580012D326 /* ExoEarController.swift in Sources */,
-				08B1429E2267C5210012D326 /* Evaluate3d.swift in Sources */,
-				08E0C47E2261178000E2ACAC /* KNNDTW.swift in Sources */,
+				08B1429E2267C5210012D326 /* Evaluate.swift in Sources */,
 				08EB7422225D30B00079FFD5 /* AppDelegate.swift in Sources */,
 				08B142A82268FEB60012D326 /* RealTimeClassifier.swift in Sources */,
-				08B142982267ABAB0012D326 /* Evaluate.swift in Sources */,
-				08B1429C2267ADE50012D326 /* KNNDTWI_3D.swift in Sources */,
+				08B1429C2267ADE50012D326 /* KNNDTW.swift in Sources */,
 				08B142962267A09C0012D326 /* Helper.swift in Sources */,
-				08B1429A2267AC500012D326 /* KNNDTWTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

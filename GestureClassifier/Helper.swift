@@ -114,3 +114,31 @@ class Helper{
     }
 
 }
+
+
+class Participant {
+    
+    var name:String
+    var leftSamples = Array<Sample>()
+    var rightSamples = Array<Sample>()
+    var frontSamples = Array<Sample>()
+    
+    init(name:String) {
+        self.name=name
+    }
+}
+
+class Sample {
+    
+    var number:Int = 0
+    init(number:Int) {
+        self.number = number
+    }
+    
+    var accX = Array<Float>()
+    var accY = Array<Float>()
+    var accZ = Array<Float>()
+    var gyrX = Array<Float>()
+    var gyrY = Array<Float>()
+    var gyrZ = Array<Float>()
+}

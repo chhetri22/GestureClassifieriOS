@@ -16,21 +16,21 @@ func evaluateKNN(data:Dictionary<String, Participant>) {
     
     var training_samples: [knn_curve_label_pair] = [knn_curve_label_pair]()
     
+    
+    // add training data
     for participantString in participants {
         let participant = data[participantString]
-        for leftSample in participant!.leftSamples {
-            if leftSample.number <= 8 {
-                training_samples.append(knn_curve_label_pair(curve: leftSample.accZ.map { Float($0) }, label: "left"))
-            }
-        }
-        for rightSample in participant!.rightSamples {
-            if rightSample.number <= 8 {
-                training_samples.append(knn_curve_label_pair(curve: rightSample.accZ.map { Float($0) }, label: "right"))
-            }
-        }
-        for frontSample in participant!.frontSamples {
-            if frontSample.number <= 8 {
-                training_samples.append(knn_curve_label_pair(curve: frontSample.accZ.map { Float($0) }, label: "front"))
+        
+        var sampleMap = [String : Array<Sample>]()
+        sampleMap["left"] = participant!.leftSamples
+        sampleMap["right"] = participant!.rightSamples
+        sampleMap["front"] = participant!.frontSamples
+        
+        for (label, samples) in sampleMap {
+            for sample in samples {
+                if sample.number <= 8 {
+                    training_samples.append(knn_curve_label_pair(curveAccX: sample.accX, curveAccY: sample.accY, curveAccZ: sample.accZ , curveGyrX: sample.gyrX,curveGyrY: sample.gyrY, curveGyrZ: sample.gyrZ, label: label))
+                }
             }
         }
     }
@@ -43,62 +43,39 @@ func evaluateKNN(data:Dictionary<String, Participant>) {
     
     var correct: Float = 0
     var incorrect: Float = 0
-    
     var certaintyTotal: Float = 0
     
     for participantString in participants {
         let participant = data[participantString]
-        print(participant!.leftSamples.count)
-        for leftSample in participant!.leftSamples {
-            if leftSample.number > 8 {
-                let prediction: knn_certainty_label_pair = knn.predict(curve_to_test: leftSample.accZ.map { Float($0) })
-                
-                if prediction.label == "left" {
-                    correct += 1
-                } else {
-                    incorrect += 1
+        
+        var sampleMap = [String : Array<Sample>]()
+        sampleMap["left"] = participant!.leftSamples
+        sampleMap["right"] = participant!.rightSamples
+        sampleMap["front"] = participant!.frontSamples
+        
+        print(participantString)
+        
+        for (label, samples) in sampleMap {
+            for sample in samples {
+                if sample.number > 8 {
+                    
+                    let prediction: knn_certainty_label_pair = knn.predict(curveToTestAccX: sample.accX, curveToTestAccY: sample.accY, curveToTestAccZ: sample.accZ, curveToTestGyrX: sample.gyrX, curveToTestGyrY: sample.gyrY, curveToTestGyrZ: sample.gyrZ)
+                    
+                    if prediction.label == label {
+                        correct += 1
+                    } else {
+                        incorrect += 1
+                    }
+                    
+                    certaintyTotal += prediction.probability
+                    
+                    print(label,": predicted " + prediction.label, "with ", prediction.probability*100,"% certainty")
                 }
-                
-                certaintyTotal += prediction.probability
-                
-                print("LEFT: predicted " + prediction.label, "with ", prediction.probability*100,"% certainty")
-            }
-        }
-        for rightSample in participant!.rightSamples {
-            if rightSample.number > 8 {
-                let prediction: knn_certainty_label_pair = knn.predict(curve_to_test: rightSample.accZ.map { Float($0) })
-                
-                if prediction.label == "right" {
-                    correct += 1
-                } else {
-                    incorrect += 1
-                }
-                
-                certaintyTotal += prediction.probability
-                
-                print("RIGHT: predicted " + prediction.label, "with ", prediction.probability*100,"% certainty")
-            }
-        }
-        for frontSample in participant!.frontSamples {
-            if frontSample.number > 8 {
-                let prediction: knn_certainty_label_pair = knn.predict(curve_to_test: frontSample.accZ.map { Float($0) })
-                
-                if prediction.label == "front" {
-                    correct += 1
-                } else {
-                    incorrect += 1
-                }
-                
-                certaintyTotal += prediction.probability
-                
-                print("FRONT: predicted " + prediction.label, "with ", prediction.probability*100,"% certainty")
-                
             }
         }
     }
     let total: Float = correct+incorrect
     let accuracy: Float = correct/total
-    print(correct, " ", incorrect)
     print("Accuracy: ",accuracy)
     
     print("Average Certainty: ", certaintyTotal/Float(total))

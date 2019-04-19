@@ -2,6 +2,7 @@
 //  KNNDTW.swift
 //
 //  Created by Michael Mahler on 8/26/16.
+//  Modified by Abishkar Chhetri on 4/17/19.
 //  Copyright © 2016. All rights reserved.
 //
 
@@ -36,7 +37,7 @@ public class KNNDTW: NSObject {
         
         for set in data_sets {
             
-            if (set.curve.count == 0 || set.label == "") {
+            if (set.curveAccX.count == 0 || set.curveAccY.count == 0 || set.curveAccZ.count == 0 || set.label == "") {
                 print("HEY! BOTH CURVE AND LABEL ARE REQUIRED!")
             }
             
@@ -145,7 +146,7 @@ public class KNNDTW: NSObject {
     
     
     
-    public func predict(curve_to_test: [Float]) -> knn_certainty_label_pair {
+    public func predict(curveToTestAccX: [Float], curveToTestAccY: [Float], curveToTestAccZ: [Float], curveToTestGyrX: [Float], curveToTestGyrY: [Float], curveToTestGyrZ: [Float]) -> knn_certainty_label_pair {
         
         if (self.n_neighbors == 0) {
             self.n_neighbors = Int(sqrt(Float(self.curve_label_pairs.count)))
@@ -158,7 +159,10 @@ public class KNNDTW: NSObject {
         var distances: [knn_distance_label_pair] = [knn_distance_label_pair]()
         
         for pair in self.curve_label_pairs {
-            distances.append(knn_distance_label_pair(distance: self.dtw_cost(y: pair.curve, x: curve_to_test), label: pair.label))
+            
+            let totalDistance = self.dtw_cost(y: pair.curveAccX, x: curveToTestAccX) + self.dtw_cost(y: pair.curveAccY, x: curveToTestAccY) + self.dtw_cost(y: pair.curveAccZ, x: curveToTestAccZ) + self.dtw_cost(y: pair.curveGyrX, x: curveToTestGyrX) + self.dtw_cost(y: pair.curveGyrY, x: curveToTestGyrY) + self.dtw_cost(y: pair.curveGyrZ, x: curveToTestGyrZ)
+            
+            distances.append(knn_distance_label_pair(distance: totalDistance, label: pair.label))
         }
         
         //sort the distances, ascending distances
@@ -216,7 +220,12 @@ public class KNNDTW: NSObject {
 
 //input type
 public struct knn_curve_label_pair {
-    let curve: [Float]
+    let curveAccX: [Float]
+    let curveAccY: [Float]
+    let curveAccZ: [Float]
+    let curveGyrX: [Float]
+    let curveGyrY: [Float]
+    let curveGyrZ: [Float]
     let label: String
 }
 
@@ -225,9 +234,3 @@ public struct knn_certainty_label_pair {
     let probability: Float
     let label: String
 }
-
-
-
-
-
-

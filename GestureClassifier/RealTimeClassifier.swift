@@ -7,14 +7,9 @@ public class RTClassifier: NSObject {
     //meta parameters
     var motionManager = CMMotionManager()
     var data: Dictionary<String, Participant> = Dictionary<String, Participant>()
-    let knn: KNNDTW_3D = KNNDTW_3D()
+    let knn: KNNDTW = KNNDTW()
     
-    var accX = Array<Float>()
-    var accY = Array<Float>()
-    var accZ = Array<Float>()
-    var gyrX = Array<Float>()
-    var gyrY = Array<Float>()
-    var gyrZ = Array<Float>()
+    var sample = Sample(number: 0)
     
     struct ModelConstants {
         static let numOfFeatures = 6
@@ -28,7 +23,7 @@ public class RTClassifier: NSObject {
     func configure() {
         self.data = Helper.createDataDict(path: "data_csv")
         let participants = ["P5", "P1", "P12", "P11", "P7", "P6", "P2", "P8", "P4", "P3", "P9", "P10"]
-        var training_samples: [knn_curve_label_pair_3d] = [knn_curve_label_pair_3d]()
+        var training_samples: [knn_curve_label_pair] = [knn_curve_label_pair]()
         
         // add training data
         for participantString in participants {
@@ -42,7 +37,7 @@ public class RTClassifier: NSObject {
             for (label, samples) in sampleMap {
                 for sample in samples {
                     if sample.number <= 8 {
-                        training_samples.append(knn_curve_label_pair_3d(curveAccX: sample.accX, curveAccY: sample.accY, curveAccZ: sample.accZ , curveGyrX: sample.gyrX,curveGyrY: sample.gyrY, curveGyrZ: sample.gyrZ, label: label))
+                        training_samples.append(knn_curve_label_pair(curveAccX: sample.accX, curveAccY: sample.accY, curveAccZ: sample.accZ , curveGyrX: sample.gyrX,curveGyrY: sample.gyrY, curveGyrZ: sample.gyrZ, label: label))
                     }
                 }
             }
@@ -79,17 +74,17 @@ public class RTClassifier: NSObject {
         
         func addGyroSampleToDataArray (gyroSample: CMGyroData) {
             // Add the current gyro reading to the data array
-            gyrX.append(Float(gyroSample.rotationRate.x))
-            gyrY.append(Float(gyroSample.rotationRate.y))
-            gyrZ.append(Float(gyroSample.rotationRate.z))
+            sample.gyrX.append(Float(gyroSample.rotationRate.x))
+            sample.gyrY.append(Float(gyroSample.rotationRate.y))
+            sample.gyrZ.append(Float(gyroSample.rotationRate.z))
         }
         
         
         func addAccelSampleToDataArray (accelSample: CMAccelerometerData) {
             // Add the current accelerometer reading to the data array
-            accX.append(Float(accelSample.acceleration.x))
-            accY.append(Float(accelSample.acceleration.y))
-            accZ.append(Float(accelSample.acceleration.z))
+            sample.accX.append(Float(accelSample.acceleration.x))
+            sample.accY.append(Float(accelSample.acceleration.y))
+            sample.accZ.append(Float(accelSample.acceleration.z))
             
             // Update the index in the prediction window data array
             currentIndexInPredictionWindow += 1
@@ -104,19 +99,15 @@ public class RTClassifier: NSObject {
                 
                 // Start a new prediction window
                 currentIndexInPredictionWindow = 0
-                accX = Array<Float>()
-                accY = Array<Float>()
-                accZ = Array<Float>()
-                gyrX = Array<Float>()
-                gyrY = Array<Float>()
-                gyrZ = Array<Float>()
+
+                self.sample = Sample(number: 0)
 
             }
         }
         
         func performModelPrediction () -> String? {
             // Perform model prediction
-            let prediction: knn_certainty_label_pair_3d = knn.predict(curveToTestAccX: accX, curveToTestAccY: accY, curveToTestAccZ: accZ, curveToTestGyrX: gyrX, curveToTestGyrY: gyrY, curveToTestGyrZ: gyrZ)
+            let prediction: knn_certainty_label_pair = knn.predict(curveToTestAccX: self.sample.accX, curveToTestAccY: self.sample.accY, curveToTestAccZ: self.sample.accZ, curveToTestGyrX: self.sample.gyrX, curveToTestGyrY: self.sample.gyrY, curveToTestGyrZ: self.sample.gyrZ)
             print("predicted " + prediction.label, "with ", prediction.probability*100,"% certainty")
             return prediction.label
         }

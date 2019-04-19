@@ -15,36 +15,11 @@ public class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-//        evaluateKNN3d(data: data)
+        var data = Helper.createDataDict(path: "data_csv")
+//        evaluateKNN(data: data)
+        
         let classifier = RTClassifier()
         classifier.configure()
         classifier.run()
     }
-}
-
-class Participant {
-    
-    var name:String
-    var leftSamples = Array<Sample>()
-    var rightSamples = Array<Sample>()
-    var frontSamples = Array<Sample>()
-    
-    init(name:String) {
-        self.name=name
-    }
-}
-
-class Sample {
-    
-    var number:Int = 0
-    init(number:Int) {
-        self.number = number
-    }
-    
-    var accX = Array<Float>()
-    var accY = Array<Float>()
-    var accZ = Array<Float>()
-    var gyrX = Array<Float>()
-    var gyrY = Array<Float>()
-    var gyrZ = Array<Float>()
 }
