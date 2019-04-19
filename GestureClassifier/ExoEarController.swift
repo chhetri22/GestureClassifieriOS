@@ -118,13 +118,13 @@ CBPeripheralDelegate {
     
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        //print("Data")
+//        print("Data")
         // Make sure it is the peripheral we want
         //    print(characteristic.uuid)
         if characteristic.uuid == UUID_READ {
             // Get bytes into string
             let dataReceived = characteristic.value! as NSData
-            // print(dataReceived)
+//             print(dataReceived)
             
             var uAccX: UInt32 = 0
             var uAccY: UInt32 = 0
@@ -210,8 +210,8 @@ CBPeripheralDelegate {
             let distZ = abs(currAccZ - oldAccZ)
             
             
-            //      print(currAccX, oldAccX, distX);
-            //      print(currAccY, oldAccY, distY);
+//                  print(currAccX, oldAccX, distX);
+//                  print(currAccY, oldAccY, distY);
             
             oldAccX = currAccX
             oldAccY = currAccY

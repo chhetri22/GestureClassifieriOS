@@ -11,13 +11,16 @@ import CoreMotion
 
 public class ViewController: UIViewController {
     let motionManager = CMMotionManager()
+    var exoEar = ExoEarController()
+    var timer:Timer = Timer()
+    
     override public func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        var data = Helper.createDataDict(path: "data_csv")
+//        let data = Helper.createDataDict(path: "data_csv")
 //        evaluateKNN(data: data)
-        
+//
         let classifier = RTClassifier()
         classifier.configure()
         classifier.run()
