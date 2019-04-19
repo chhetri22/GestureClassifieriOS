@@ -7,14 +7,18 @@
 //
 
 import UIKit
+import CoreMotion
 
-class ViewController: UIViewController {
-    override func viewDidLoad() {
+public class ViewController: UIViewController {
+    let motionManager = CMMotionManager()
+    override public func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let data = Helper.createDataDict(path: "data_csv")
-        evaluateKNN3d(data: data)
-//        testKNN(data: data)
+        
+//        evaluateKNN3d(data: data)
+        let classifier = RTClassifier()
+        classifier.configure()
+        classifier.run()
     }
 }
 
