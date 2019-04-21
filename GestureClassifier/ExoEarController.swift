@@ -57,8 +57,6 @@ CBPeripheralDelegate {
         if central.state == CBManagerState.poweredOn {
             print("Buscando a Marc")
             central.scanForPeripherals(withServices: nil, options: nil)
-        } else if central.state == CBManagerState.poweredOff {
-            print("Powered off")
         }
     }
     
@@ -280,13 +278,17 @@ CBPeripheralDelegate {
         print("success")
         print(characteristic.uuid)
         print(error)
+        let vc = UIApplication.shared.keyWindow!.rootViewController as! ViewController
+        vc.peripheralStateChanged(state: "Connected")
+
     }
     
     // Peripheral disconnected
     // Potentially hide relevant interface
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         debugPrint("Disconnected.")
-        
+        let vc = UIApplication.shared.keyWindow!.rootViewController as! ViewController
+        vc.peripheralStateChanged(state: "Disconnected")
         // Start scanning again
 //        central.scanForPeripherals(withServices: nil, options: nil)
     }

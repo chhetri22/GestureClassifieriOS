@@ -63,6 +63,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="connectButton" destination="2v6-Td-EWX" id="ojK-1x-vtg"/>
                         <outlet property="connectionView" destination="dEM-co-OWO" id="IEY-RO-tQe"/>
                         <outlet property="doGestureButton" destination="CSF-Zz-Klo" id="6Wi-1C-C2Z"/>
                         <outlet property="vBatLabel" destination="xtF-j9-pET" id="udM-gH-4II"/>
