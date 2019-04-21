@@ -119,7 +119,7 @@ CBPeripheralDelegate {
     var oldVBat: Int32 = 0
     
     func getVBat() -> Int32 {
-        print(self.currVBat)
+//        print(self.currVBat)
         return self.currVBat
     }
     
@@ -214,7 +214,7 @@ CBPeripheralDelegate {
             currGyrZ = Int32(alpha * Float(gyrZ) + (1 - alpha) * Float(currGyrZ))
             
             self.currVBat = Int32(alpha * Float(vBat) + (1 - alpha) * Float(currVBat))
-            print(self.currVBat)
+//            print(self.currVBat)
             let distX = abs(currAccX - oldAccX)
             let distY = abs(currAccY - oldAccY)
             let distZ = abs(currAccZ - oldAccZ)

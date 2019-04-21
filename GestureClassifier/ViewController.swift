@@ -28,10 +28,10 @@ public class ViewController: UIViewController {
 //        print(data["P1"]?.leftSamples[5].accX)
 //        print(data["P1"]?.rightSamples[15].accX)
 //        print(data["P1"]?.frontSamples[18].accX)
-        evaluateKNN(data: data)
+//        evaluateKNN(data: data)
 //
         
-//        classifier.configure()
+        classifier.configure()
 //        classifier.run()
 //        self.timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(self.updateBattery), userInfo: nil, repeats: true)
         // Helps UI stay responsive even with timer.
@@ -45,11 +45,18 @@ public class ViewController: UIViewController {
 //        self.vBatLabel.text = String(vBat) + "%"
 //    }
 //
-//    @IBAction func doGesture(_ sender: UIButton) {
-//        sender.setTitle("Recording", for: .normal)
-//        classifier.performModelPrediction()
-//        sender.setTitle("Do Gesture", for: .normal)
-//    }
-    
-    
+    var isRecording = false
+    @IBAction func doGesture(_ sender: UIButton) {
+        if !isRecording {
+            sender.setTitle("Recording", for: .normal)
+            classifier.startRecording()
+            isRecording = true
+        } else {
+            sender.setTitle("Classifying", for: .normal)
+            isRecording = false
+            let label = classifier.doPrediction()
+            print(label)
+            sender.setTitle("Do Gesture", for: .normal)
+        }
+    }
 }
