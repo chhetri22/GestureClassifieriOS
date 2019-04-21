@@ -26,15 +26,39 @@ CBPeripheralDelegate {
     let UUID_READ = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
 //    let motionManager = CMMotionManager()
     
+    func getPeripheralState() -> String {
+        if let peripheral: CBPeripheral = _peripheral {
+            switch(peripheral.state){
+            case .disconnected:
+                return "Disconnected"
+            case .connecting:
+                return "Connecting"
+            case .connected:
+                return "Connected"
+            case .disconnecting:
+                return "Disconnecting"
+            default:
+                return "Unknown"
+            }
+        }
+        return "Disconnected"
+    }
     
-    func initExoEar() {
+    func connectExoEar() {
         manager = CBCentralManager(delegate: self, queue: nil)
+    }
+
+    func disconnectExoEar() {
+        manager.cancelPeripheralConnection(_peripheral)
     }
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        print("centralManagerDidUpdateState")
         if central.state == CBManagerState.poweredOn {
             print("Buscando a Marc")
             central.scanForPeripherals(withServices: nil, options: nil)
+        } else if central.state == CBManagerState.poweredOff {
+            print("Powered off")
         }
     }
     
@@ -264,7 +288,7 @@ CBPeripheralDelegate {
         debugPrint("Disconnected.")
         
         // Start scanning again
-        central.scanForPeripherals(withServices: nil, options: nil)
+//        central.scanForPeripherals(withServices: nil, options: nil)
     }
     
 }

@@ -57,7 +57,7 @@ public class RTClassifier: NSObject {
         
         self.knn.configure(neighbors: 3, max_warp: 0) //max_warp isn't implemented yet
         self.knn.train(data_sets: training_samples)
-        self.exoEar.initExoEar()
+        self.exoEar.connectExoEar()
     }
     
     func performModelPrediction () -> String? {
