@@ -11,8 +11,8 @@ import Foundation
 
 func evaluateKNN(data:Dictionary<String, Participant>) {
     
-    let participants = ["P5", "P1", "P12", "P11", "P7", "P6", "P2", "P8", "P4", "P3", "P9", "P10"]
-    //        let participants = ["P5"]
+//    let participants = ["P5", "P1", "P12", "P11", "P7", "P6", "P2", "P8", "P4", "P3","P9", "P10"]
+    let participants = ["P1"]
     
     var training_samples: [knn_curve_label_pair] = [knn_curve_label_pair]()
     
@@ -28,7 +28,7 @@ func evaluateKNN(data:Dictionary<String, Participant>) {
         
         for (label, samples) in sampleMap {
             for sample in samples {
-                if sample.number <= 8 {
+                if sample.number < 15 {
                     training_samples.append(knn_curve_label_pair(curveAccX: sample.accX, curveAccY: sample.accY, curveAccZ: sample.accZ , curveGyrX: sample.gyrX,curveGyrY: sample.gyrY, curveGyrZ: sample.gyrZ, label: label))
                 }
             }
@@ -53,12 +53,9 @@ func evaluateKNN(data:Dictionary<String, Participant>) {
         sampleMap["right"] = participant!.rightSamples
         sampleMap["front"] = participant!.frontSamples
         
-        print(participantString)
-        
         for (label, samples) in sampleMap {
             for sample in samples {
-                if sample.number > 8 {
-                    
+                if sample.number > 15 {
                     let prediction: knn_certainty_label_pair = knn.predict(curveToTestAccX: sample.accX, curveToTestAccY: sample.accY, curveToTestAccZ: sample.accZ, curveToTestGyrX: sample.gyrX, curveToTestGyrY: sample.gyrY, curveToTestGyrZ: sample.gyrZ)
                     
                     if prediction.label == label {

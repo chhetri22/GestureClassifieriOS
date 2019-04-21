@@ -58,7 +58,7 @@ class Helper{
                 sample.gyrZ.append(rowArray[5]!)
             }
         }
-        
+//        sample.normalizeVals()
     }
     static func createDataDict(path:String) -> Dictionary<String, Participant> {
         var data: [String: Participant] = [:]
@@ -79,7 +79,7 @@ class Helper{
             let participant = data[participantName]!
             
             var participantGesture = Array<Sample>()
-            
+            var n = 0
             for sampleFileName in sampleFiles {
                 let sampleFileNameWithoutExt = sampleFileName.components(separatedBy: ".")[0]
                 let sampleData = readDataFromCSV(fileName: sampleFileNameWithoutExt, fileType: "csv", path: participantPath)
@@ -91,11 +91,14 @@ class Helper{
                 if sampleFileNameWithoutExtArr.count == 2 {
                     sample = Sample(number: Int(sampleFileNameWithoutExtArr[1])!)
                 } else {
-                    sample = Sample(number: 0)
+//                    sample = Sample(number: 0)
+                    sample = Sample(number: n)
                 }
                 populateValues(sampleData: sampleData!, sample: sample)
                 participantGesture.append(sample)
+                n+=1
             }
+            n = 0
             
             switch gestureDirection {
             case "FT":
@@ -141,4 +144,24 @@ class Sample {
     var gyrX = Array<Float>()
     var gyrY = Array<Float>()
     var gyrZ = Array<Float>()
+    
+    func normalizeVals() {
+        let maxAccX = self.accX.max()
+        self.accX = self.accX.map{$0/maxAccX!}
+        
+        let maxAccY = self.accY.max()
+        self.accY = self.accY.map{$0/maxAccY!}
+        
+        let maxAccZ = self.accZ.max()
+        self.accZ = self.accZ.map{$0/maxAccZ!}
+        
+        let maxGyrX = self.gyrX.max()
+        self.gyrX = self.gyrX.map{$0/maxGyrX!}
+        
+        let maxGyrY = self.gyrY.max()
+        self.gyrY = self.gyrY.map{$0/maxGyrY!}
+        
+        let maxGyrZ = self.gyrZ.max()
+        self.gyrZ = self.gyrZ.map{$0/maxGyrZ!}
+    }
 }

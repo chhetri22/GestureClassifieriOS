@@ -9,7 +9,7 @@
 import Foundation
 import CoreBluetooth
 import UIKit
-import CoreMotion
+//import CoreMotion
 
 class ExoEarController: UIViewController,
     CBCentralManagerDelegate,
@@ -24,7 +24,7 @@ CBPeripheralDelegate {
     let UUID_SERVICE = CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E")
     let UUID_WRITE = CBUUID(string: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E")
     let UUID_READ = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
-    let motionManager = CMMotionManager()
+//    let motionManager = CMMotionManager()
     
     
     func initExoEar() {
@@ -115,7 +115,13 @@ CBPeripheralDelegate {
     var oldGyrY: Int32 = 0
     var oldGyrZ: Int32 = 0
     
+    var currVBat: Int32 = 0
+    var oldVBat: Int32 = 0
     
+    func getVBat() -> Int32 {
+        print(self.currVBat)
+        return self.currVBat
+    }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
 //        print("Data")
@@ -138,6 +144,7 @@ CBPeripheralDelegate {
             var uNGyrX: UInt32 = 0
             var uNGyrY: UInt32 = 0
             var uNGyrZ: UInt32 = 0
+            var vBat: UInt32 = 0
             
             dataReceived.getBytes(&uAccX, range: NSRange(location: 0, length: 4))
             dataReceived.getBytes(&uAccY, range: NSRange(location: 4, length: 4))
@@ -146,7 +153,8 @@ CBPeripheralDelegate {
             dataReceived.getBytes(&uGyrX, range: NSRange(location: 12, length: 4))
             dataReceived.getBytes(&uGyrY, range: NSRange(location: 16, length: 4))
             dataReceived.getBytes(&uGyrZ, range: NSRange(location: 20, length: 4))
-            
+            dataReceived.getBytes(&vBat, range: NSRange(location: 24, length: 4))
+//            print(vBat)
             //        dataReceived.getBytes(&uNAccX, range: NSRange(location: 24, length: 4))
             //        dataReceived.getBytes(&uNAccY, range: NSRange(location: 28, length: 4))
             //        dataReceived.getBytes(&uNAccZ, range: NSRange(location: 32, length: 4))
@@ -205,6 +213,8 @@ CBPeripheralDelegate {
             currGyrY = Int32(alpha * Float(gyrY) + (1 - alpha) * Float(currGyrY))
             currGyrZ = Int32(alpha * Float(gyrZ) + (1 - alpha) * Float(currGyrZ))
             
+            self.currVBat = Int32(alpha * Float(vBat) + (1 - alpha) * Float(currVBat))
+            print(self.currVBat)
             let distX = abs(currAccX - oldAccX)
             let distY = abs(currAccY - oldAccY)
             let distZ = abs(currAccZ - oldAccZ)
@@ -228,17 +238,18 @@ CBPeripheralDelegate {
     
     // add parameter to getData to indicate whether to use iphone data or exoear data
     func getData(fromExoEar:Bool = true) -> [(Int32, Int32, Int32)] {
-        if fromExoEar {
-            return [(currAccX, currAccY, currAccZ), (currGyrX, currGyrY, currGyrZ)]
-        } else {
-            if motionManager.isAccelerometerAvailable {
-                motionManager.accelerometerUpdateInterval = 0.1
-                motionManager.startAccelerometerUpdates(to: OperationQueue.main) { (data, error) in
-                    print(data!)
-                }
-            }
-            return [(currAccX, currAccY, currAccZ), (currGyrX, currGyrY, currGyrZ)]
-        }
+//        if fromExoEar {
+//        print([(currAccX, currAccY, currAccZ), (currGyrX, currGyrY, currGyrZ)])
+        return [(currAccX, currAccY, currAccZ), (currGyrX, currGyrY, currGyrZ)]
+//        } else {
+//            if motionManager.isAccelerometerAvailable {
+//                motionManager.accelerometerUpdateInterval = 0.1
+//                motionManager.startAccelerometerUpdates(to: OperationQueue.main) { (data, error) in
+//                    print(data!)
+//                }
+//            }
+//            return [(currAccX, currAccY, currAccZ), (currGyrX, currGyrY, currGyrZ)]
+//        }
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {

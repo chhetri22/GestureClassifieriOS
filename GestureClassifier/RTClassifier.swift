@@ -15,7 +15,7 @@ public class RTClassifier: NSObject {
     var exoEar = ExoEarController()
     var timer:Timer = Timer()
     //meta parameters
-    var motionManager = CMMotionManager()
+//    var motionManager = CMMotionManager()
     var data: Dictionary<String, Participant> = Dictionary<String, Participant>()
     let knn: KNNDTW = KNNDTW()
     
@@ -23,16 +23,18 @@ public class RTClassifier: NSObject {
     
     struct ModelConstants {
         static let numOfFeatures = 6
-        static let predictionWindowSize = 50
+        static let predictionWindowSize = 2000
         static let sensorsUpdateInterval = 1.0 / 20.0
         static let hiddenInLength = 200
         static let hiddenCellInLength = 200
+        static let flexWindowSize = 100
     }
     //internal data structures
     
     func configure() {
         self.data = Helper.createDataDict(path: "data_csv")
-        let participants = ["P5", "P1", "P12", "P11", "P7", "P6", "P2", "P8", "P4", "P3", "P9", "P10"]
+//        let participants = ["P5", "P1", "P12", "P11", "P7", "P6", "P2", "P8", "P4", "P3", "P9", "P10"]
+        let participants = ["P1"]
         var training_samples: [knn_curve_label_pair] = [knn_curve_label_pair]()
         
         // add training data
@@ -46,7 +48,7 @@ public class RTClassifier: NSObject {
             
             for (label, samples) in sampleMap {
                 for sample in samples {
-                    if sample.number <= 8 {
+                    if sample.number <= 50 {
                         training_samples.append(knn_curve_label_pair(curveAccX: sample.accX, curveAccY: sample.accY, curveAccZ: sample.accZ , curveGyrX: sample.gyrX,curveGyrY: sample.gyrY, curveGyrZ: sample.gyrZ, label: label))
                     }
                 }
@@ -60,8 +62,12 @@ public class RTClassifier: NSObject {
     
     func performModelPrediction () -> String? {
         // Perform model prediction
-        let prediction: knn_certainty_label_pair = knn.predict(curveToTestAccX: self.sample.accX, curveToTestAccY: self.sample.accY, curveToTestAccZ: self.sample.accZ, curveToTestGyrX: self.sample.gyrX, curveToTestGyrY: self.sample.gyrY, curveToTestGyrZ: self.sample.gyrZ)
+        print("Hold on...")
+        let prediction: knn_certainty_label_pair = knn.predict(curveToTestAccX: self.sample.accX.suffix(ModelConstants.flexWindowSize), curveToTestAccY: self.sample.accY.suffix(ModelConstants.flexWindowSize), curveToTestAccZ: self.sample.accZ.suffix(ModelConstants.flexWindowSize), curveToTestGyrX: self.sample.gyrX.suffix(ModelConstants.flexWindowSize), curveToTestGyrY: self.sample.gyrY.suffix(ModelConstants.flexWindowSize), curveToTestGyrZ: self.sample.gyrZ.suffix(ModelConstants.flexWindowSize))
+        print("last acc data: ",self.sample.accX.last)
         print("predicted " + prediction.label, "with ", prediction.probability*100,"% certainty")
+        
+        print("Begin Gesture Now...")
         return prediction.label
     }
     
@@ -69,11 +75,11 @@ public class RTClassifier: NSObject {
         var currentIndexInPredictionWindow = 0
 //        let predictionWindowDataArray = try? MLMultiArray(shape: [1 , ModelConstants.predictionWindowSize , ModelConstants.numOfFeatures] as [NSNumber], dataType: MLMultiArrayDataType.double)
         
-        if motionManager.isAccelerometerAvailable && motionManager.isGyroAvailable {
-            print("ALL GOOD")
-        } else {
-            print("Something wrong")
-        }
+//        if motionManager.isAccelerometerAvailable && motionManager.isGyroAvailable {
+//            print("ALL GOOD")
+//        } else {
+//            print("Something wrong")
+//        }
         
 //        motionManager.accelerometerUpdateInterval = TimeInterval(ModelConstants.sensorsUpdateInterval)
 //        motionManager.gyroUpdateInterval = TimeInterval(ModelConstants.sensorsUpdateInterval)
@@ -125,6 +131,7 @@ public class RTClassifier: NSObject {
         //TODO:
         _ = Timer.scheduledTimer(withTimeInterval: ModelConstants.sensorsUpdateInterval, repeats: true) { timer in
             let data = self.exoEar.getData()
+//            print(data)
             self.sample.accX.append(Float(data[0].0))
             self.sample.accY.append(Float(data[0].1))
             self.sample.accZ.append(Float(data[0].2))
@@ -134,7 +141,12 @@ public class RTClassifier: NSObject {
             
             currentIndexInPredictionWindow += 1
             
+            if (currentIndexInPredictionWindow == ModelConstants.flexWindowSize) {
+                print("whenever you're ready")
+            }
+            
             if (currentIndexInPredictionWindow == ModelConstants.predictionWindowSize) {
+                print("reached 2000 samples, restarting...")
                 let predictedActivity = self.performModelPrediction() ?? "N/A"
                 
                 // Use the predicted activity here
