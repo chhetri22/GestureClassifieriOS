@@ -9,8 +9,6 @@
 import Foundation
 
 public class KNNDTW: NSObject {
-    
-    
     //meta parameters
     private var n_neighbors: Int = 0
     private var max_warping_window: Int = 1000 // this isn't implemented yet
@@ -58,17 +56,17 @@ public class KNNDTW: NSObject {
     
     
     
-    private func dtw_cost(y: [Float], x: [Float]) -> Float {
+    private func dtw_cost(s1: [Float], s2: [Float]) -> Float {
         
         //FIRST, we get the distance between each point
         
-        var distances = [[Float]](repeating: [Float](repeating: 0, count: x.count), count: y.count)
+        var distances = [[Float]](repeating: [Float](repeating: 0, count: s2.count), count: s1.count)
         
         //use euclidean distance between the pairs of points.
-        for (i,_) in y.enumerated() {
-            for (j,_) in x.enumerated() {
+        for (i,_) in s1.enumerated() {
+            for (j,_) in s2.enumerated() {
                 //distances[i][j] = (a[j]-b[i])**2
-                distances[i][j] = pow(abs( x[j] - y[i] ), 2)
+                distances[i][j] = pow(abs( s2[j] - s1[i] ), 2)
             }
         }
         
@@ -76,24 +74,24 @@ public class KNNDTW: NSObject {
         
         //SECOND, we compute the warp path (basically cost of each path)
         
-        var acc_cost = [[Float]](repeating: [Float](repeating: 0, count: x.count), count: y.count)
+        var acc_cost = [[Float]](repeating: [Float](repeating: 0, count: s2.count), count: s1.count)
         acc_cost[0][0] = distances[0][0]
         
         
         //horiz axis
-        for i in 1...x.count-1 {
+        for i in 1...s2.count-1 {
             acc_cost[0][i] = distances[0][i] + acc_cost[0][i-1]
         }
         
         //vert axis
-        for i in 1...y.count-1 {
+        for i in 1...s1.count-1 {
             acc_cost[i][0] = distances[i][0] + acc_cost[i-1][0]
         }
         
         
         //should be non horiz and vertical values
-        for i in 1...y.count-1 {
-            for j in 1...x.count-1 {
+        for i in 1...s1.count-1 {
+            for j in 1...s2.count-1 {
                 acc_cost[i][j] = min(acc_cost[i-1][j-1], acc_cost[i-1][j], acc_cost[i][j-1]) + distances[i][j]
             }
         }
@@ -102,8 +100,8 @@ public class KNNDTW: NSObject {
         
         //THIRD, we backtrack and find cost of optimal path
         var path = [[Int]]()
-        var i = y.count-1
-        var j = x.count-1
+        var i = s1.count-1
+        var j = s2.count-1
         
         path.append([j, i])
         
@@ -160,7 +158,7 @@ public class KNNDTW: NSObject {
         
         for pair in self.curve_label_pairs {
             
-            let totalDistance = self.dtw_cost(y: pair.curveAccX, x: curveToTestAccX) + self.dtw_cost(y: pair.curveAccY, x: curveToTestAccY) + self.dtw_cost(y: pair.curveAccZ, x: curveToTestAccZ) + self.dtw_cost(y: pair.curveGyrX, x: curveToTestGyrX) + self.dtw_cost(y: pair.curveGyrY, x: curveToTestGyrY) + self.dtw_cost(y: pair.curveGyrZ, x: curveToTestGyrZ)
+            let totalDistance = self.dtw_cost(s1: pair.curveAccX, s2: curveToTestAccX) + self.dtw_cost(s1: pair.curveAccY, s2: curveToTestAccY) + self.dtw_cost(s1: pair.curveAccZ, s2: curveToTestAccZ) + self.dtw_cost(s1: pair.curveGyrX, s2: curveToTestGyrX) + self.dtw_cost(s1: pair.curveGyrY, s2: curveToTestGyrY) + self.dtw_cost(s1: pair.curveGyrZ, s2: curveToTestGyrZ)
             
             distances.append(knn_distance_label_pair(distance: totalDistance, label: pair.label))
         }

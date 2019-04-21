@@ -46,7 +46,7 @@ public class RTClassifier: NSObject {
             
             for (label, samples) in sampleMap {
                 for sample in samples {
-                    if sample.number <= 50 {
+                    if sample.number <= 15 {
                         training_samples.append(knn_curve_label_pair(curveAccX: sample.accX, curveAccY: sample.accY, curveAccZ: sample.accZ , curveGyrX: sample.gyrX,curveGyrY: sample.gyrY, curveGyrZ: sample.gyrZ, label: label))
                     }
                 }
