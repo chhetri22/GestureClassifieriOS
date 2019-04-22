@@ -31,13 +31,14 @@ public class ViewController: UIViewController {
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-        
+
         connectionView.frame.size.width = 50
         connectionView.frame.size.height = 50
         connectionView.backgroundColor = UIColor.red
         connectionView.layer.cornerRadius = connectionView.frame.size.width/2
         // Do any additional setup after loading the view, typically from a nib.
 //        self.exoEar.initExoEar()
+
 //        let data = Helper.createDataDict(path: "data_csv")
 //        print(data)
 //        print(data["P1"])
@@ -48,7 +49,7 @@ public class ViewController: UIViewController {
 //        evaluateKNN(data: data)
 //
         
-//        classifier.configure()
+        classifier.configure()
 //        classifier.run()
 
         // Helps UI stay responsive even with timer.
@@ -92,12 +93,6 @@ public class ViewController: UIViewController {
         self.vBatLabel.text = String(vBat) + "%"
     }
 
-    @IBAction func doGesture(_ sender: UIButton) {
-        sender.setTitle("Recording", for: .normal)
-        classifier.performModelPrediction()
-        sender.setTitle("Do Gesture", for: .normal)
-    }
-    
     @IBAction func connect(_ sender: UIButton) {
         print(self.exoEar.getPeripheralState())
         if self.exoEar.getPeripheralState() == "Disconnected" {
@@ -132,5 +127,25 @@ public class ViewController: UIViewController {
         }
     }
     
-    
+
+//        let vBat = self.exoEar.getVBat()
+////        let vBat = Date.timeIntervalSinceReferenceDate
+//        self.vBatLabel.text = String(vBat) + "%"
+//    }
+//
+    var isRecording = false
+    @IBAction func doGesture(_ sender: UIButton) {
+        if !isRecording {
+            sender.setTitle("Recording", for: .normal)
+            classifier.startRecording()
+            isRecording = true
+        } else {
+            sender.setTitle("Classifying", for: .normal)
+            isRecording = false
+            let label = classifier.doPrediction()
+            print(label)
+            sender.setTitle("Do Gesture", for: .normal)
+        }
+    }
+
 }
