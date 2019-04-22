@@ -12,7 +12,7 @@ import CoreML
 
 
 public class RTClassifier: NSObject {
-    var exoEar = ExoEarController()
+//    var exoEar = ExoEarController()
     var timer:Timer = Timer()
     //meta parameters
 //    var motionManager = CMMotionManager()
@@ -56,7 +56,7 @@ public class RTClassifier: NSObject {
         
         self.knn.configure(neighbors: 3, max_warp: 0) //max_warp isn't implemented yet
         self.knn.train(data_sets: training_samples)
-        self.exoEar.connectExoEar()
+//        self.exoEar.connectExoEar()
     }
     
     func performModelPrediction () -> String? {
@@ -75,9 +75,11 @@ public class RTClassifier: NSObject {
 //        var currentIndexInPredictionWindow = 0
         
         //TODO:
+        let vc = UIApplication.shared.keyWindow!.rootViewController as! ViewController
+        let exoEar = vc.exoEar
         self.timer.invalidate()
         self.timer = Timer.scheduledTimer(withTimeInterval: ModelConstants.sensorsUpdateInterval, repeats: true) { timer in
-            let data = self.exoEar.getData()
+            let data = exoEar.getData()
 //            NSLog("")
             print(data)
             self.sample.accX.append(Float(data[0].0))
