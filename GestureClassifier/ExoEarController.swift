@@ -219,7 +219,7 @@ CBPeripheralDelegate {
             let distY = abs(currAccY - oldAccY)
             let distZ = abs(currAccZ - oldAccZ)
             
-            
+
 //                  print(currAccX, oldAccX, distX);
 //                  print(currAccY, oldAccY, distY);
             

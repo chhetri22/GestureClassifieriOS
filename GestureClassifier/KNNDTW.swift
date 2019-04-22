@@ -158,8 +158,18 @@ public class KNNDTW: NSObject {
         
         for pair in self.curve_label_pairs {
             
-            let totalDistance = self.dtw_cost(s1: pair.curveAccX, s2: curveToTestAccX) + self.dtw_cost(s1: pair.curveAccY, s2: curveToTestAccY) + self.dtw_cost(s1: pair.curveAccZ, s2: curveToTestAccZ) + self.dtw_cost(s1: pair.curveGyrX, s2: curveToTestGyrX) + self.dtw_cost(s1: pair.curveGyrY, s2: curveToTestGyrY) + self.dtw_cost(s1: pair.curveGyrZ, s2: curveToTestGyrZ)
+//            let totalDistance = self.dtw_cost(s1: pair.curveAccX, s2: curveToTestAccX) + self.dtw_cost(s1: pair.curveAccY, s2: curveToTestAccY) + self.dtw_cost(s1: pair.curveAccZ, s2: curveToTestAccZ) + self.dtw_cost(s1: pair.curveGyrX, s2: curveToTestGyrX) + self.dtw_cost(s1: pair.curveGyrY, s2: curveToTestGyrY) + self.dtw_cost(s1: pair.curveGyrZ, s2: curveToTestGyrZ)
             
+            let xAccDist = self.dtw_cost(s1: pair.curveAccX, s2: curveToTestAccX)
+            let yAccDist = self.dtw_cost(s1: pair.curveAccY, s2: curveToTestAccY)
+            let zAccDist = self.dtw_cost(s1: pair.curveAccZ, s2: curveToTestAccZ)
+            let xGyrDist = self.dtw_cost(s1: pair.curveGyrX, s2: curveToTestGyrX)
+            let yGyrDist = self.dtw_cost(s1: pair.curveGyrY, s2: curveToTestGyrY)
+            let zGyrDist = self.dtw_cost(s1: pair.curveGyrZ, s2: curveToTestGyrZ)
+            print(xAccDist, yAccDist, zAccDist, xGyrDist, yGyrDist, zGyrDist)
+            let totalDistance = xAccDist + yAccDist + zAccDist + xGyrDist + yGyrDist + zGyrDist
+            print(totalDistance)
+            print(pair.label)
             distances.append(knn_distance_label_pair(distance: totalDistance, label: pair.label))
         }
         

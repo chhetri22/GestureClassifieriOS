@@ -21,7 +21,7 @@ public class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let data = Helper.createDataDict(path: "data_csv")
+//        let data = Helper.createDataDict(path: "data_csv")
 //        print(data)
 //        print(data["P1"])
 //        print(data["P1"]?.leftSamples)
