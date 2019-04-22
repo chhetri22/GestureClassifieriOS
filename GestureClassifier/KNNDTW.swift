@@ -167,7 +167,8 @@ public class KNNDTW: NSObject {
             let yGyrDist = self.dtw_cost(s1: pair.curveGyrY, s2: curveToTestGyrY)
             let zGyrDist = self.dtw_cost(s1: pair.curveGyrZ, s2: curveToTestGyrZ)
             print(xAccDist, yAccDist, zAccDist, xGyrDist, yGyrDist, zGyrDist)
-            let totalDistance = xAccDist + yAccDist + zAccDist + xGyrDist + yGyrDist + zGyrDist
+//            let totalDistance = xAccDist + yAccDist + zAccDist + xGyrDist + yGyrDist + zGyrDist
+            let totalDistance = xGyrDist + yGyrDist + zGyrDist
             print(totalDistance)
             print(pair.label)
             distances.append(knn_distance_label_pair(distance: totalDistance, label: pair.label))
