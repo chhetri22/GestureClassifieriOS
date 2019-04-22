@@ -16,9 +16,9 @@ public class ViewController: UIViewController {
     var exoEar = ExoEarController()
 //    var timer:Timer = Timer()
     @IBOutlet weak var doGestureButton: UIButton!
-    @IBOutlet weak var vBatLabel: UILabel!
+    @IBOutlet weak var vBatLbl: UILabel!
     @IBOutlet weak var connectionView: UIView!
-    @IBOutlet weak var connectButton: UIButton!
+    @IBOutlet weak var connectBtn: UIButton!
     @IBOutlet weak var left1: UIButton!
     @IBOutlet weak var left2: UIButton!
     @IBOutlet weak var left3: UIButton!
@@ -28,6 +28,9 @@ public class ViewController: UIViewController {
     @IBOutlet weak var front1: UIButton!
     @IBOutlet weak var front2: UIButton!
     @IBOutlet weak var front3: UIButton!
+    @IBOutlet weak var recordBtn: UIButton!
+    @IBOutlet weak var selSampleLbl: UILabel!
+    @IBOutlet weak var trainBtn: UIButton!
     
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +63,7 @@ public class ViewController: UIViewController {
     
     func setupButtons() {
         let btns = [self.left1, self.left2, self.left3, self.right1, self.right2, self.right3, self.front1, self.front2, self.front3]
-        for var btn in btns {
+        for btn in btns {
             btn!.backgroundColor = UIColor.white
             btn!.layer.borderColor = UIColor.black.cgColor
             btn!.layer.borderWidth = 1
@@ -76,7 +79,7 @@ public class ViewController: UIViewController {
     func stopVBatUpdate() {
         self.timer.invalidate()
         self.timer = Timer()
-        self.vBatLabel.text = "0%"
+        self.vBatLbl.text = "0%"
     }
     
     func peripheralStateChanged(state: String) {
@@ -90,7 +93,7 @@ public class ViewController: UIViewController {
 //    var date = Date.timeIntervalSinceReferenceDate
     @objc func updateBattery() {
         let vBat = self.exoEar.getVBat()
-        self.vBatLabel.text = String(vBat) + "%"
+        self.vBatLbl.text = String(vBat) + "%"
     }
 
     @IBAction func connect(_ sender: UIButton) {
@@ -106,42 +109,94 @@ public class ViewController: UIViewController {
     
     func disconnected() {
         self.connectionView.backgroundColor = UIColor.red
-        self.connectButton.setTitle("Connect", for: .normal)
+        self.connectBtn.setTitle("Connect", for: .normal)
         stopVBatUpdate()
     }
 
     func connected() {
         self.connectionView.backgroundColor = UIColor.green
-        self.connectButton.setTitle("Disconnect", for: .normal)
+        self.connectBtn.setTitle("Disconnect", for: .normal)
         startVBatUpdate()
     }
     
     var cmds = ["l": "left", "r": "right", "f": "front"]
-    
-    @IBAction func gatherSample(_ sender: UIButton) {
+    var activeBtn: UIButton?
+    @IBAction func selectSample(_ sender: UIButton) {
         if let id = sender.restorationIdentifier {
             let cmd = cmds[String(id.prefix(1))]!
             let num = id.dropFirst().prefix(1)
             print(cmd, num)
-            sender.backgroundColor = UIColor.gray
+            if let prev = activeBtn {
+                if prev == sender {
+                    prev.backgroundColor = UIColor.white
+                    activeBtn = nil
+                    self.selSampleLbl.text = "None"
+                    return
+                } else {
+                    if prev.backgroundColor == UIColor.lightGray {
+                        prev.backgroundColor = UIColor.white
+                    }
+                }
+            }
+            sender.backgroundColor = UIColor.lightGray
+            activeBtn = sender
+            self.selSampleLbl.text = cmd.capitalized + " " + String(num)
         }
     }
     
-
+    var isRecording = false
+    @IBAction func gatherSample(_ sender: UIButton) {
+        if self.exoEar.getPeripheralState() == "Disconnected" {
+            let alert = UIAlertController(title: "Please connect GRU", message: "", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            //            alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+            return
+        }
+        if activeBtn == nil {
+            let alert = UIAlertController(title: "Please select a sample", message: "", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+//            alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+            return
+        }
+        if sender.title(for: .normal) == "Record" {
+            activeBtn?.backgroundColor = UIColor.red
+            sender.setTitle("Stop", for: .normal)
+        } else {
+            activeBtn?.backgroundColor = UIColor.darkGray
+            sender.setTitle("Record", for: .normal)
+        }
+        
+    }
+    
+    @IBAction func trainGestures(_ sender: UIButton) {
+        let btns = [self.left1, self.left2, self.left3, self.right1, self.right2, self.right3, self.front1, self.front2, self.front3]
+        for btn in btns {
+            if btn!.backgroundColor != UIColor.darkGray {
+                let alert = UIAlertController(title: "Please record all samples", message: "", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true)
+                return
+            }
+        }
+        print("Success!")
+    }
+    
 //        let vBat = self.exoEar.getVBat()
 ////        let vBat = Date.timeIntervalSinceReferenceDate
 //        self.vBatLabel.text = String(vBat) + "%"
 //    }
 //
-    var isRecording = false
+    var isGesturing = false
     @IBAction func doGesture(_ sender: UIButton) {
-        if !isRecording {
+        if !isGesturing {
             sender.setTitle("Recording", for: .normal)
             classifier.startRecording()
-            isRecording = true
+            isGesturing = true
         } else {
             sender.setTitle("Classifying", for: .normal)
-            isRecording = false
+            isGesturing = false
             let label = classifier.doPrediction()
             print(label)
             sender.setTitle("Do Gesture", for: .normal)

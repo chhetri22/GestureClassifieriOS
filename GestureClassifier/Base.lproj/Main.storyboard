@@ -57,7 +57,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
-                                    <action selector="gatherSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ps0-ai-SNv"/>
+                                    <action selector="selectSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ps0-ai-SNv"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="l2" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SaA-74-ypf">
@@ -65,7 +65,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
-                                    <action selector="gatherSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5Kt-cF-XoP"/>
+                                    <action selector="selectSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5Kt-cF-XoP"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="l1" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ojV-4F-hsh">
@@ -73,7 +73,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
-                                    <action selector="gatherSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qv5-Lk-YEP"/>
+                                    <action selector="selectSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qv5-Lk-YEP"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="r2" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sLc-ZO-JQ7">
@@ -81,7 +81,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
-                                    <action selector="gatherSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="R61-Oo-t7Q"/>
+                                    <action selector="selectSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="R61-Oo-t7Q"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="r3" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ble-2X-gHF">
@@ -89,7 +89,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
-                                    <action selector="gatherSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fTG-PN-EbX"/>
+                                    <action selector="selectSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fTG-PN-EbX"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="f3" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uc5-JM-ap5">
@@ -97,7 +97,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
-                                    <action selector="gatherSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EVA-lr-pE9"/>
+                                    <action selector="selectSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EVA-lr-pE9"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="f1" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VIe-Hv-MOX">
@@ -105,7 +105,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
-                                    <action selector="gatherSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1lF-MV-csh"/>
+                                    <action selector="selectSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1lF-MV-csh"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="f2" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jle-66-rwS">
@@ -113,7 +113,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
-                                    <action selector="gatherSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bcJ-QN-FD8"/>
+                                    <action selector="selectSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bcJ-QN-FD8"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="r1" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qbj-qr-c87">
@@ -121,7 +121,32 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
-                                    <action selector="gatherSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FIh-8P-yCh"/>
+                                    <action selector="selectSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FIh-8P-yCh"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eZu-vS-MkM">
+                                <rect key="frame" x="157" y="428" width="62" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Record"/>
+                                <connections>
+                                    <action selector="gatherSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hig-du-IFL"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="None" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MaH-O5-gzT">
+                                <rect key="frame" x="147" y="389" width="83" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DIJ-yF-fwO">
+                                <rect key="frame" x="157" y="507" width="62" height="48"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Train"/>
+                                <connections>
+                                    <action selector="trainGestures:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VRn-mz-X4x"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -139,7 +164,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="connectButton" destination="2v6-Td-EWX" id="ojK-1x-vtg"/>
+                        <outlet property="connectBtn" destination="2v6-Td-EWX" id="ojK-1x-vtg"/>
                         <outlet property="connectionView" destination="dEM-co-OWO" id="IEY-RO-tQe"/>
                         <outlet property="doGestureButton" destination="CSF-Zz-Klo" id="6Wi-1C-C2Z"/>
                         <outlet property="front1" destination="VIe-Hv-MOX" id="fwn-3r-Vgi"/>
@@ -148,10 +173,13 @@
                         <outlet property="left1" destination="ojV-4F-hsh" id="Wvp-wY-oAG"/>
                         <outlet property="left2" destination="SaA-74-ypf" id="leQ-E2-bUz"/>
                         <outlet property="left3" destination="Cy9-V9-QRq" id="Tsc-jf-L7p"/>
+                        <outlet property="recordBtn" destination="eZu-vS-MkM" id="l0x-5P-ByN"/>
                         <outlet property="right1" destination="qbj-qr-c87" id="lhc-kQ-nnr"/>
                         <outlet property="right2" destination="sLc-ZO-JQ7" id="TaR-rS-S2O"/>
                         <outlet property="right3" destination="ble-2X-gHF" id="zJG-No-n0G"/>
-                        <outlet property="vBatLabel" destination="xtF-j9-pET" id="udM-gH-4II"/>
+                        <outlet property="selSampleLbl" destination="MaH-O5-gzT" id="yZD-yH-cPp"/>
+                        <outlet property="trainBtn" destination="DIJ-yF-fwO" id="zco-pw-Kwo"/>
+                        <outlet property="vBatLbl" destination="xtF-j9-pET" id="udM-gH-4II"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
