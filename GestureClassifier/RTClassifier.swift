@@ -18,6 +18,8 @@ public class RTClassifier: NSObject {
 //    var motionManager = CMMotionManager()
     var data: Dictionary<String, Participant> = Dictionary<String, Participant>()
     let knn: KNNDTW = KNNDTW()
+    var training_samples: [knn_curve_label_pair] = [knn_curve_label_pair]()
+    var trainingData: Dictionary<String, Sample> = Dictionary<String, Sample>()
     
     var sample = Sample(number:0)
     
@@ -31,36 +33,16 @@ public class RTClassifier: NSObject {
     
     func configure() {
         self.sample = Sample(number: 0)
-        self.data = Helper.createDataDict(path: "data_csv")
-//        let participants = ["P5", "P1", "P12", "P11", "P7", "P6", "P2", "P8", "P4", "P3", "P9", "P10"]
-        let participants = ["P1"]
-        var training_samples: [knn_curve_label_pair] = [knn_curve_label_pair]()
-        
-        // add training data
-        for participantString in participants {
-            let participant = self.data[participantString]
-            
-            var sampleMap = [String : Array<Sample>]()
-            sampleMap["left"] = participant!.leftSamples
-            sampleMap["right"] = participant!.rightSamples
-            sampleMap["front"] = participant!.frontSamples
-            
-            for (label, samples) in sampleMap {
-                for t_sample in samples {
-                    if t_sample.number <= 2 {
-                        training_samples.append(knn_curve_label_pair(curveAccX: t_sample.accX, curveAccY: t_sample.accY, curveAccZ: t_sample.accZ , curveGyrX: t_sample.gyrX,curveGyrY: t_sample.gyrY, curveGyrZ: t_sample.gyrZ, label: label))
-                    }
-                }
-            }
-        }
-        
         self.knn.configure(neighbors: 3, max_warp: 0) //max_warp isn't implemented yet
-        self.knn.train(data_sets: training_samples)
+//        self.knn.train(data_sets: training_samples)
 //        self.exoEar.connectExoEar()
     }
     
     func performModelPrediction () -> String? {
         // Perform model prediction
+        if training_samples.count < 6 {
+            return "Need more training data"
+        }
         print("Hold on...")
 //        let prediction: knn_certainty_label_pair = knn.predict(curveToTestAccX: self.sample.accX, curveToTestAccY: self.sample.accY.suffix(ModelConstants.flexWindowSize), curveToTestAccZ: self.sample.accZ.suffix(ModelConstants.flexWindowSize), curveToTestGyrX: self.sample.gyrX.suffix(ModelConstants.flexWindowSize), curveToTestGyrY: self.sample.gyrY.suffix(ModelConstants.flexWindowSize), curveToTestGyrZ: self.sample.gyrZ.suffix(ModelConstants.flexWindowSize))
         let prediction: knn_certainty_label_pair = knn.predict(curveToTestAccX: self.sample.accX, curveToTestAccY: self.sample.accY, curveToTestAccZ: self.sample.accZ, curveToTestGyrX: self.sample.gyrX, curveToTestGyrY: self.sample.gyrY, curveToTestGyrZ: self.sample.gyrZ)
@@ -69,6 +51,38 @@ public class RTClassifier: NSObject {
         
         print("Begin Gesture Now...")
         return prediction.label
+    }
+    
+    func startTrain(label: String, number: Int) {
+        self.trainingData[label] = Sample(number: number)
+        let vc = UIApplication.shared.keyWindow!.rootViewController as! ViewController
+        let exoEar = vc.exoEar
+        self.timer.invalidate()
+        self.timer = Timer.scheduledTimer(withTimeInterval: ModelConstants.sensorsUpdateInterval, repeats: true) { timer in
+            let data = exoEar.getData()
+            self.trainingData[label]!.accX.append(Float(data[0].0))
+            self.trainingData[label]!.accY.append(Float(data[0].1))
+            self.trainingData[label]!.accZ.append(Float(data[0].2))
+            self.trainingData[label]!.gyrX.append(Float(data[1].0))
+            self.trainingData[label]!.gyrY.append(Float(data[1].1))
+            self.trainingData[label]!.gyrZ.append(Float(data[1].2))
+        }
+    }
+    
+    func stopTrain() {
+        self.timer.invalidate()
+    }
+    
+    func finalTrain() {
+        for (label, sample) in self.trainingData {
+            let properLabel = label.components(separatedBy: "-")[0]
+            self.training_samples.append(knn_curve_label_pair(curveAccX: sample.accX, curveAccY: sample.accY, curveAccZ: sample.accZ , curveGyrX: sample.gyrX,curveGyrY: sample.gyrY, curveGyrZ: sample.gyrZ, label: properLabel))
+        }
+        if training_samples.count < 6 {
+            print("ERROR: Need more training data")
+        } else {
+            self.knn.train(data_sets: self.training_samples)
+        }
     }
     
     public func startRecording() {
