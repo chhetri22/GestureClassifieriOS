@@ -19,9 +19,19 @@ public class ViewController: UIViewController {
     @IBOutlet weak var vBatLabel: UILabel!
     @IBOutlet weak var connectionView: UIView!
     @IBOutlet weak var connectButton: UIButton!
+    @IBOutlet weak var left1: UIButton!
+    @IBOutlet weak var left2: UIButton!
+    @IBOutlet weak var left3: UIButton!
+    @IBOutlet weak var right1: UIButton!
+    @IBOutlet weak var right2: UIButton!
+    @IBOutlet weak var right3: UIButton!
+    @IBOutlet weak var front1: UIButton!
+    @IBOutlet weak var front2: UIButton!
+    @IBOutlet weak var front3: UIButton!
     
     override public func viewDidLoad() {
         super.viewDidLoad()
+        
         connectionView.frame.size.width = 50
         connectionView.frame.size.height = 50
         connectionView.backgroundColor = UIColor.red
@@ -43,6 +53,18 @@ public class ViewController: UIViewController {
 
         // Helps UI stay responsive even with timer.
 //        startVBatUpdate()
+        setupButtons()
+        stopVBatUpdate()
+    }
+    
+    func setupButtons() {
+        let btns = [self.left1, self.left2, self.left3, self.right1, self.right2, self.right3, self.front1, self.front2, self.front3]
+        for var btn in btns {
+            btn!.backgroundColor = UIColor.white
+            btn!.layer.borderColor = UIColor.black.cgColor
+            btn!.layer.borderWidth = 1
+            btn!.layer.cornerRadius = btn!.frame.size.width/2
+        }
     }
     
     func startVBatUpdate() {
@@ -98,5 +120,17 @@ public class ViewController: UIViewController {
         self.connectButton.setTitle("Disconnect", for: .normal)
         startVBatUpdate()
     }
+    
+    var cmds = ["l": "left", "r": "right", "f": "front"]
+    
+    @IBAction func gatherSample(_ sender: UIButton) {
+        if let id = sender.restorationIdentifier {
+            let cmd = cmds[String(id.prefix(1))]!
+            let num = id.dropFirst().prefix(1)
+            print(cmd, num)
+            sender.backgroundColor = UIColor.gray
+        }
+    }
+    
     
 }

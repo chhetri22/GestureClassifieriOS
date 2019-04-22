@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CSF-Zz-Klo">
-                                <rect key="frame" x="91" y="376" width="193" height="60"/>
+                                <rect key="frame" x="91" y="668" width="193" height="60"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <state key="normal" title="Do Gesture"/>
                                 <connections>
@@ -48,6 +48,82 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="teeth.png" translatesAutoresizingMaskIntoConstraints="NO" id="cv6-AS-ZZZ">
+                                <rect key="frame" x="55" y="314" width="265" height="185"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="l3" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cy9-V9-QRq">
+                                <rect key="frame" x="16" y="444" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="gatherSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ps0-ai-SNv"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="l2" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SaA-74-ypf">
+                                <rect key="frame" x="16" y="396" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="gatherSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5Kt-cF-XoP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="l1" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ojV-4F-hsh">
+                                <rect key="frame" x="16" y="348" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="gatherSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qv5-Lk-YEP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="r2" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sLc-ZO-JQ7">
+                                <rect key="frame" x="319" y="396" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="gatherSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="R61-Oo-t7Q"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="r3" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ble-2X-gHF">
+                                <rect key="frame" x="319" y="444" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="gatherSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fTG-PN-EbX"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="f3" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uc5-JM-ap5">
+                                <rect key="frame" x="215" y="272" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="gatherSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EVA-lr-pE9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="f1" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VIe-Hv-MOX">
+                                <rect key="frame" x="119" y="272" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="gatherSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1lF-MV-csh"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="f2" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jle-66-rwS">
+                                <rect key="frame" x="167" y="272" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="gatherSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bcJ-QN-FD8"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="r1" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qbj-qr-c87">
+                                <rect key="frame" x="319" y="348" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="gatherSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FIh-8P-yCh"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -55,7 +131,7 @@
                             <constraint firstItem="xtF-j9-pET" firstAttribute="top" secondItem="2v6-Td-EWX" secondAttribute="bottom" constant="20" id="8hT-xZ-1DP"/>
                             <constraint firstItem="xtF-j9-pET" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="EWj-Dc-Hkj"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dEM-co-OWO" secondAttribute="trailing" constant="20" id="Gik-VA-zPm"/>
-                            <constraint firstItem="CSF-Zz-Klo" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Vvd-bC-x2h"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="CSF-Zz-Klo" secondAttribute="bottom" constant="50" id="cai-DQ-RtU"/>
                             <constraint firstItem="2v6-Td-EWX" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="epA-2G-xYR"/>
                             <constraint firstItem="2v6-Td-EWX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="pLX-al-gU6"/>
                             <constraint firstItem="CSF-Zz-Klo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xct-rJ-JVY"/>
@@ -66,6 +142,15 @@
                         <outlet property="connectButton" destination="2v6-Td-EWX" id="ojK-1x-vtg"/>
                         <outlet property="connectionView" destination="dEM-co-OWO" id="IEY-RO-tQe"/>
                         <outlet property="doGestureButton" destination="CSF-Zz-Klo" id="6Wi-1C-C2Z"/>
+                        <outlet property="front1" destination="VIe-Hv-MOX" id="fwn-3r-Vgi"/>
+                        <outlet property="front2" destination="Jle-66-rwS" id="WpY-r2-cDV"/>
+                        <outlet property="front3" destination="uc5-JM-ap5" id="2Ks-Q4-t18"/>
+                        <outlet property="left1" destination="ojV-4F-hsh" id="Wvp-wY-oAG"/>
+                        <outlet property="left2" destination="SaA-74-ypf" id="leQ-E2-bUz"/>
+                        <outlet property="left3" destination="Cy9-V9-QRq" id="Tsc-jf-L7p"/>
+                        <outlet property="right1" destination="qbj-qr-c87" id="lhc-kQ-nnr"/>
+                        <outlet property="right2" destination="sLc-ZO-JQ7" id="TaR-rS-S2O"/>
+                        <outlet property="right3" destination="ble-2X-gHF" id="zJG-No-n0G"/>
                         <outlet property="vBatLabel" destination="xtF-j9-pET" id="udM-gH-4II"/>
                     </connections>
                 </viewController>
@@ -74,4 +159,7 @@
             <point key="canvasLocation" x="136.80000000000001" y="63.546798029556655"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="teeth.png" width="376.5" height="283.5"/>
+    </resources>
 </document>
