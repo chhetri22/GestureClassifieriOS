@@ -26,7 +26,18 @@ class AudioViewController: UIViewController, MPMediaPickerControllerDelegate {
     @IBOutlet weak var volumeSlider: UISlider!
     
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupVolumeSlider()
+        updateInfo()
+        pickButton.layer.zPosition = CGFloat(MAXFLOAT)
+        if mp.playbackState == MPMusicPlaybackState.playing {
+            startTimer(time: 1)
+        }
+    }
+    
     @IBAction func pickSong(_ sender: UIButton) {
+        print("pick")
         let myMediaPickerVC = MPMediaPickerController(mediaTypes: MPMediaType.music)
         myMediaPickerVC.allowsPickingMultipleItems = false
         myMediaPickerVC.popoverPresentationController?.sourceView = sender
@@ -137,15 +148,6 @@ class AudioViewController: UIViewController, MPMediaPickerControllerDelegate {
     
     func updateVolume() {
         MPVolumeView.setVolume(volumeValue)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupVolumeSlider()
-        updateInfo()
-        if mp.playbackState == MPMusicPlaybackState.playing {
-            startTimer(time: 1)
-        }
     }
     
     @objc func updateTime() {

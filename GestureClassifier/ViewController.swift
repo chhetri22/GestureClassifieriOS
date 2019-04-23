@@ -14,6 +14,7 @@ public class ViewController: UIViewController {
     var timer = Timer()
 //    let motionManager = CMMotionManager()
     var exoEar = ExoEarController()
+    var trained = false
 //    var timer:Timer = Timer()
     @IBOutlet weak var doGestureButton: UIButton!
     @IBOutlet weak var vBatLbl: UILabel!
@@ -28,25 +29,32 @@ public class ViewController: UIViewController {
     @IBOutlet weak var front1: UIButton!
     @IBOutlet weak var front2: UIButton!
     @IBOutlet weak var front3: UIButton!
-    @IBOutlet weak var recordBtn: UIButton!
+    @IBOutlet weak var tryBtn: UIButton!
     @IBOutlet weak var selSampleLbl: UILabel!
     @IBOutlet weak var trainBtn: UIButton!
     @IBOutlet weak var gestureLbl: UILabel!
-    @IBOutlet weak var realtimeBtn: UIButton!
+    @IBOutlet weak var contBtn: UIButton!
     @IBOutlet weak var audioView: UIView!
     @IBOutlet weak var teethImg: UIImageView!
+    @IBOutlet weak var headerLine: UIView!
+    
+    var audioVC: AudioViewController!
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-//        audioView.layer.zPosition = -1
-        connectBtn.layer.zPosition = 1
-        self.view.bringSubviewToFront(connectBtn)
-        vBatLbl.layer.zPosition = 1
-        connectionView.layer.zPosition = 1
+        let child = self.children.first
+        if let aVC = child as? AudioViewController {
+            self.audioVC = aVC
+        }
         connectionView.frame.size.width = 25
         connectionView.frame.size.height = 25
         connectionView.backgroundColor = UIColor.red
         connectionView.layer.cornerRadius = connectionView.frame.size.width/2
+        self.connectBtn.layer.zPosition = 2
+        self.vBatLbl.layer.zPosition = 2
+        self.connectionView.layer.zPosition = 2
+        self.view.bringSubviewToFront(self.connectBtn)
+        self.headerLine.layer.zPosition = 2
         // Do any additional setup after loading the view, typically from a nib.
 //        self.exoEar.initExoEar()
 
@@ -156,7 +164,7 @@ public class ViewController: UIViewController {
         if self.exoEar.getPeripheralState() == "Disconnected" {
             let alert = UIAlertController(title: "Please connect GRU", message: "", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            //            alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+            //         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
             self.present(alert, animated: true)
             return
         }
@@ -183,7 +191,7 @@ public class ViewController: UIViewController {
         }
         
     }
-    
+
     @IBAction func trainGestures(_ sender: UIButton) {
         let btns = [self.left1, self.left2, self.left3, self.right1, self.right2, self.right3, self.front1, self.front2, self.front3]
         for btn in btns {
@@ -195,6 +203,7 @@ public class ViewController: UIViewController {
             }
         }
         self.classifier.finalTrain()
+        self.trained = true
     }
     
 //        let vBat = self.exoEar.getVBat()
@@ -213,34 +222,36 @@ public class ViewController: UIViewController {
     
     var isGesturing = false
     @IBAction func doGesture(_ sender: UIButton) {
+        if !trained {
+            let alert = UIAlertController(title: "Please train first", message: "", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true)
+            return
+        }
         if !isGesturing {
             sender.setTitle("Stop", for: .normal)
             classifier.startRecording()
             isGesturing = true
         } else {
             isGesturing = false
-            let label = classifier.doPrediction()
-            self.gestureLbl.text = label
-            let child = self.children.first
-            if let aVC = child as? AudioViewController {
+            var label = classifier.doPrediction()
                 switch label {
-                case "front":
-                    teethImg.image = UIImage(named: "front.jpeg")
-                    cleanAfter(seconds: 3.0)
-                    aVC.playOrPauseMusic(self)
-                case "left":
-                    teethImg.image = UIImage(named: "left.jpeg")
-                    cleanAfter(seconds: 3.0)
-                    aVC.rewind(self)
-                case "right":
-                    teethImg.image = UIImage(named: "right.jpeg")
-                    cleanAfter(seconds: 3.0)
-                    aVC.fastforward(self)
-                default:
-                    print("nothing")
-                }
+            case "front":
+                teethImg.image = UIImage(named: "front.jpeg")
+                cleanAfter(seconds: 3.0)
+                self.audioVC.playOrPauseMusic(self)
+            case "left":
+                teethImg.image = UIImage(named: "left.jpeg")
+                cleanAfter(seconds: 3.0)
+                self.audioVC.rewind(self)
+            case "right":
+                teethImg.image = UIImage(named: "right.jpeg")
+                cleanAfter(seconds: 3.0)
+                self.audioVC.fastforward(self)
+            default:
+                label = ""
             }
-
+            self.gestureLbl.text = label
             sender.setTitle("Try", for: .normal)
         }
     }
