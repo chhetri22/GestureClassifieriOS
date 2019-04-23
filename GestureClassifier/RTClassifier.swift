@@ -53,8 +53,11 @@ public class RTClassifier: NSObject {
         return prediction.label
     }
     
-    func startTrain(label: String, number: Int) {
-        self.trainingData[label] = Sample(number: number)
+    func startTrain(gesture: String, number: Int) {
+        let label = gesture + "-" + String(number)
+        print("startTrain")
+        print(label, number)
+        self.trainingData[label] = Sample(number: 0)
         let vc = UIApplication.shared.keyWindow!.rootViewController as! ViewController
         let exoEar = vc.exoEar
         self.timer.invalidate()
@@ -67,10 +70,13 @@ public class RTClassifier: NSObject {
             self.trainingData[label]!.gyrY.append(Float(data[1].1))
             self.trainingData[label]!.gyrZ.append(Float(data[1].2))
         }
+        self.trainingData[label]?.normalizeVals()
     }
     
     func stopTrain() {
+        print("stopTrain")
         self.timer.invalidate()
+        self.timer = Timer()
     }
     
     func finalTrain() {
@@ -78,10 +84,11 @@ public class RTClassifier: NSObject {
             let properLabel = label.components(separatedBy: "-")[0]
             self.training_samples.append(knn_curve_label_pair(curveAccX: sample.accX, curveAccY: sample.accY, curveAccZ: sample.accZ , curveGyrX: sample.gyrX,curveGyrY: sample.gyrY, curveGyrZ: sample.gyrZ, label: properLabel))
         }
-        if training_samples.count < 6 {
+        if training_samples.count < 9 {
             print("ERROR: Need more training data")
         } else {
             self.knn.train(data_sets: self.training_samples)
+            print("trained")
         }
     }
     

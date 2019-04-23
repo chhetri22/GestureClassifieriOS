@@ -31,12 +31,14 @@ public class ViewController: UIViewController {
     @IBOutlet weak var recordBtn: UIButton!
     @IBOutlet weak var selSampleLbl: UILabel!
     @IBOutlet weak var trainBtn: UIButton!
+    @IBOutlet weak var gestureLbl: UILabel!
+    @IBOutlet weak var realtimeBtn: UIButton!
     
     override public func viewDidLoad() {
         super.viewDidLoad()
 
-        connectionView.frame.size.width = 50
-        connectionView.frame.size.height = 50
+        connectionView.frame.size.width = 25
+        connectionView.frame.size.height = 25
         connectionView.backgroundColor = UIColor.red
         connectionView.layer.cornerRadius = connectionView.frame.size.width/2
         // Do any additional setup after loading the view, typically from a nib.
@@ -163,9 +165,16 @@ public class ViewController: UIViewController {
         if sender.title(for: .normal) == "Record" {
             activeBtn?.backgroundColor = UIColor.red
             sender.setTitle("Stop", for: .normal)
+            if let active = self.activeBtn {
+                let id = active.restorationIdentifier
+                let cmd = cmds[String(id!.prefix(1))]!
+                let num = id!.dropFirst().prefix(1)
+                self.classifier.startTrain(gesture: cmd, number: Int(String(num))!)
+            }
         } else {
             activeBtn?.backgroundColor = UIColor.darkGray
             sender.setTitle("Record", for: .normal)
+            self.classifier.stopTrain()
         }
         
     }
@@ -180,7 +189,7 @@ public class ViewController: UIViewController {
                 return
             }
         }
-        print("Success!")
+        self.classifier.finalTrain()
     }
     
 //        let vBat = self.exoEar.getVBat()
@@ -191,15 +200,14 @@ public class ViewController: UIViewController {
     var isGesturing = false
     @IBAction func doGesture(_ sender: UIButton) {
         if !isGesturing {
-            sender.setTitle("Recording", for: .normal)
+            sender.setTitle("Stop", for: .normal)
             classifier.startRecording()
             isGesturing = true
         } else {
-            sender.setTitle("Classifying", for: .normal)
             isGesturing = false
             let label = classifier.doPrediction()
-            print(label)
-            sender.setTitle("Do Gesture", for: .normal)
+            self.gestureLbl.text = label
+            sender.setTitle("Try", for: .normal)
         }
     }
 
