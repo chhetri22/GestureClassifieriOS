@@ -165,3 +165,49 @@ class Sample {
         self.gyrZ = self.gyrZ.map{$0/maxGyrZ!}
     }
 }
+
+class SampleBuffer {
+    
+    var accX : CircularBuffer
+    var accY : CircularBuffer
+    var accZ : CircularBuffer
+    var gyrX : CircularBuffer
+    var gyrY : CircularBuffer
+    var gyrZ : CircularBuffer
+    
+    var number:Int = 0
+    init(number:Int, count:Int) {
+        self.number = number
+        self.accX = CircularBuffer(count: count)
+        self.accY = CircularBuffer(count: count)
+        self.accZ = CircularBuffer(count: count)
+        self.gyrX = CircularBuffer(count: count)
+        self.gyrY = CircularBuffer(count: count)
+        self.gyrZ = CircularBuffer(count: count)
+    }
+}
+
+
+public struct CircularBuffer {
+    fileprivate var array: [Float]
+    fileprivate var writeIndex = 0
+    
+    public init(count: Int) {
+        array = [Float](repeating: 0.0, count: count)
+    }
+    
+    public mutating func write(element: Float) {
+        array[writeIndex % array.count] = element
+        writeIndex += 1
+    }
+    
+    public func getArray() ->  Array<Float>{
+        let readIndexStart = (writeIndex+1) % array.count
+        let firstHalf = array[..<readIndexStart]
+        let secondHalf = array[readIndexStart...]
+        let newArray = secondHalf+firstHalf
+        return Array(newArray)
+    }
+    
+    
+}

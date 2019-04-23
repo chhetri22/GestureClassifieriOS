@@ -66,7 +66,7 @@ func evaluateKNN(data:Dictionary<String, Participant>) {
                     
                     certaintyTotal += prediction.probability
                     
-                    print(label,": predicted " + prediction.label, "with ", prediction.probability*100,"% certainty")
+                    print(label,": predicted " + prediction.label, "with ", prediction.probability*100,"% certainty", "distance: " + String(prediction.minDistance))
                 }
             }
         }

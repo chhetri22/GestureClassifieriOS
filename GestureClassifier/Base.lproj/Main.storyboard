@@ -19,10 +19,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="realtime" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Pf-e7-zJH">
-                                <rect key="frame" x="215" y="730" width="126" height="48"/>
+                                <rect key="frame" x="204" y="730" width="149" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="Real-time"/>
+                                <state key="normal" title="Continuous"/>
+                                <connections>
+                                    <action selector="doContinuous:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DLa-YL-7BQ"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2v6-Td-EWX">
                                 <rect key="frame" x="150" y="64" width="75" height="36"/>
@@ -179,6 +182,7 @@
                     <connections>
                         <outlet property="connectBtn" destination="2v6-Td-EWX" id="ojK-1x-vtg"/>
                         <outlet property="connectionView" destination="dEM-co-OWO" id="IEY-RO-tQe"/>
+                        <outlet property="continousBtn" destination="8Pf-e7-zJH" id="27w-4L-1KD"/>
                         <outlet property="doGestureButton" destination="CSF-Zz-Klo" id="6Wi-1C-C2Z"/>
                         <outlet property="front1" destination="VIe-Hv-MOX" id="fwn-3r-Vgi"/>
                         <outlet property="front2" destination="Jle-66-rwS" id="WpY-r2-cDV"/>
@@ -187,7 +191,6 @@
                         <outlet property="left1" destination="ojV-4F-hsh" id="Wvp-wY-oAG"/>
                         <outlet property="left2" destination="SaA-74-ypf" id="leQ-E2-bUz"/>
                         <outlet property="left3" destination="Cy9-V9-QRq" id="Tsc-jf-L7p"/>
-                        <outlet property="realtimeBtn" destination="8Pf-e7-zJH" id="27w-4L-1KD"/>
                         <outlet property="recordBtn" destination="eZu-vS-MkM" id="l0x-5P-ByN"/>
                         <outlet property="right1" destination="qbj-qr-c87" id="lhc-kQ-nnr"/>
                         <outlet property="right2" destination="sLc-ZO-JQ7" id="TaR-rS-S2O"/>

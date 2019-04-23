@@ -156,6 +156,8 @@ public class KNNDTW: NSObject {
          */
         var distances: [knn_distance_label_pair] = [knn_distance_label_pair]()
         
+        var minDistance:Float = 99999999999.0
+        
         for pair in self.curve_label_pairs {
             
 //            let totalDistance = self.dtw_cost(s1: pair.curveAccX, s2: curveToTestAccX) + self.dtw_cost(s1: pair.curveAccY, s2: curveToTestAccY) + self.dtw_cost(s1: pair.curveAccZ, s2: curveToTestAccZ) + self.dtw_cost(s1: pair.curveGyrX, s2: curveToTestGyrX) + self.dtw_cost(s1: pair.curveGyrY, s2: curveToTestGyrY) + self.dtw_cost(s1: pair.curveGyrZ, s2: curveToTestGyrZ)
@@ -166,11 +168,14 @@ public class KNNDTW: NSObject {
             let xGyrDist = self.dtw_cost(s1: pair.curveGyrX, s2: curveToTestGyrX)
             let yGyrDist = self.dtw_cost(s1: pair.curveGyrY, s2: curveToTestGyrY)
             let zGyrDist = self.dtw_cost(s1: pair.curveGyrZ, s2: curveToTestGyrZ)
-            print(xAccDist, yAccDist, zAccDist, xGyrDist, yGyrDist, zGyrDist)
+//            print(xAccDist, yAccDist, zAccDist, xGyrDist, yGyrDist, zGyrDist)
 //            let totalDistance = xAccDist + yAccDist + zAccDist + xGyrDist + yGyrDist + zGyrDist
             let totalDistance = xGyrDist + yGyrDist + zGyrDist
-            print(totalDistance)
-            print(pair.label)
+//            print(totalDistance)
+//            print(pair.label)
+            if totalDistance < minDistance {
+                minDistance = totalDistance
+            }
             distances.append(knn_distance_label_pair(distance: totalDistance, label: pair.label))
         }
         
@@ -213,7 +218,7 @@ public class KNNDTW: NSObject {
         })
         
         //return the label and a certainty
-        return knn_certainty_label_pair(probability: Float(sorted_votes!.1)/Float(self.n_neighbors), label: (sorted_votes?.0)!)
+        return knn_certainty_label_pair(probability: Float(sorted_votes!.1)/Float(self.n_neighbors), label: (sorted_votes?.0)!, minDistance: minDistance)
         
     }
     
@@ -242,4 +247,5 @@ public struct knn_curve_label_pair {
 public struct knn_certainty_label_pair {
     let probability: Float
     let label: String
+    let minDistance:Float
 }

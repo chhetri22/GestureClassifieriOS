@@ -32,7 +32,7 @@ public class ViewController: UIViewController {
     @IBOutlet weak var selSampleLbl: UILabel!
     @IBOutlet weak var trainBtn: UIButton!
     @IBOutlet weak var gestureLbl: UILabel!
-    @IBOutlet weak var realtimeBtn: UIButton!
+    @IBOutlet weak var continousBtn: UIButton!
     
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +44,7 @@ public class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
 //        self.exoEar.initExoEar()
 
-//        let data = Helper.createDataDict(path: "data_csv")
+        let data = Helper.createDataDict(path: "data_csv")
 //        print(data)
 //        print(data["P1"])
 //        print(data["P1"]?.leftSamples)
@@ -207,6 +207,22 @@ public class ViewController: UIViewController {
             isGesturing = false
             let label = classifier.doPrediction()
             self.gestureLbl.text = label
+            sender.setTitle("Try", for: .normal)
+        }
+    }
+    
+    var isContinuous = false
+    @IBAction func doContinuous(_ sender: UIButton) {
+        if !isContinuous {
+            sender.setTitle("Stop", for: .normal)
+//            classifier.startRecording()
+            classifier.runRealTime(sizeOfBuffer: 100)
+            isContinuous = true
+        } else {
+            isContinuous = false
+//            let label = classifier.doPrediction()
+            classifier.stopTrain()
+//            self.gestureLbl.text = label
             sender.setTitle("Try", for: .normal)
         }
     }
