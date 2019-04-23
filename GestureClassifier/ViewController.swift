@@ -33,10 +33,16 @@ public class ViewController: UIViewController {
     @IBOutlet weak var trainBtn: UIButton!
     @IBOutlet weak var gestureLbl: UILabel!
     @IBOutlet weak var realtimeBtn: UIButton!
+    @IBOutlet weak var audioView: UIView!
+    @IBOutlet weak var teethImg: UIImageView!
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-
+//        audioView.layer.zPosition = -1
+        connectBtn.layer.zPosition = 1
+        self.view.bringSubviewToFront(connectBtn)
+        vBatLbl.layer.zPosition = 1
+        connectionView.layer.zPosition = 1
         connectionView.frame.size.width = 25
         connectionView.frame.size.height = 25
         connectionView.backgroundColor = UIColor.red
@@ -52,7 +58,6 @@ public class ViewController: UIViewController {
 //        print(data["P1"]?.rightSamples[15].accX)
 //        print(data["P1"]?.frontSamples[18].accX)
 //        evaluateKNN(data: data)
-//
         
         classifier.configure()
 //        classifier.run()
@@ -197,6 +202,15 @@ public class ViewController: UIViewController {
 //        self.vBatLabel.text = String(vBat) + "%"
 //    }
 //
+    var cleanTimer = Timer()
+    func cleanAfter(seconds: Double) {
+        self.cleanTimer.invalidate()
+        self.cleanTimer = Timer.scheduledTimer(withTimeInterval: seconds, repeats: false, block: { (timer) in
+            self.teethImg.image = UIImage(named: "teeth.jpeg")
+            self.gestureLbl.text = ""
+        })
+    }
+    
     var isGesturing = false
     @IBAction func doGesture(_ sender: UIButton) {
         if !isGesturing {
@@ -207,6 +221,26 @@ public class ViewController: UIViewController {
             isGesturing = false
             let label = classifier.doPrediction()
             self.gestureLbl.text = label
+            let child = self.children.first
+            if let aVC = child as? AudioViewController {
+                switch label {
+                case "front":
+                    teethImg.image = UIImage(named: "front.jpeg")
+                    cleanAfter(seconds: 3.0)
+                    aVC.playOrPauseMusic(self)
+                case "left":
+                    teethImg.image = UIImage(named: "left.jpeg")
+                    cleanAfter(seconds: 3.0)
+                    aVC.rewind(self)
+                case "right":
+                    teethImg.image = UIImage(named: "right.jpeg")
+                    cleanAfter(seconds: 3.0)
+                    aVC.fastforward(self)
+                default:
+                    print("nothing")
+                }
+            }
+
             sender.setTitle("Try", for: .normal)
         }
     }

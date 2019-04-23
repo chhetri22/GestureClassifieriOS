@@ -18,7 +18,11 @@
 		08EB7427225D30B00079FFD5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08EB7425225D30B00079FFD5 /* Main.storyboard */; };
 		08EB7429225D30B30079FFD5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08EB7428225D30B30079FFD5 /* Assets.xcassets */; };
 		08EB742C225D30B30079FFD5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08EB742A225D30B30079FFD5 /* LaunchScreen.storyboard */; };
-		FF1DB8C8226D341100E9A87E /* teeth.png in Resources */ = {isa = PBXBuildFile; fileRef = FF1DB8C7226D341100E9A87E /* teeth.png */; };
+		FF8C3795226E8E8800D6AAE7 /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8C3794226E8E8800D6AAE7 /* AudioViewController.swift */; };
+		FF8C379A226EAF8300D6AAE7 /* front.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = FF8C3797226EAE6D00D6AAE7 /* front.jpeg */; };
+		FF8C379B226EAF8300D6AAE7 /* left.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = FF8C3796226EAE6D00D6AAE7 /* left.jpeg */; };
+		FF8C379C226EAF8300D6AAE7 /* right.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = FF8C3799226EAE6E00D6AAE7 /* right.jpeg */; };
+		FF8C379D226EAF8300D6AAE7 /* teeth.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = FF8C3798226EAE6D00D6AAE7 /* teeth.jpeg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +39,11 @@
 		08EB7428225D30B30079FFD5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		08EB742B225D30B30079FFD5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		08EB742D225D30B30079FFD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FF1DB8C7226D341100E9A87E /* teeth.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = teeth.png; sourceTree = SOURCE_ROOT; };
+		FF8C3794226E8E8800D6AAE7 /* AudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
+		FF8C3796226EAE6D00D6AAE7 /* left.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = left.jpeg; path = "/Users/tomasero/Library/Mobile Documents/com~apple~CloudDocs/Documents/MIT/Spring19/research/byte.it/GestureClassifieriOS/GestureClassifier/left.jpeg"; sourceTree = "<absolute>"; };
+		FF8C3797226EAE6D00D6AAE7 /* front.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = front.jpeg; path = "/Users/tomasero/Library/Mobile Documents/com~apple~CloudDocs/Documents/MIT/Spring19/research/byte.it/GestureClassifieriOS/GestureClassifier/front.jpeg"; sourceTree = "<absolute>"; };
+		FF8C3798226EAE6D00D6AAE7 /* teeth.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = teeth.jpeg; path = "/Users/tomasero/Library/Mobile Documents/com~apple~CloudDocs/Documents/MIT/Spring19/research/byte.it/GestureClassifieriOS/GestureClassifier/teeth.jpeg"; sourceTree = "<absolute>"; };
+		FF8C3799226EAE6E00D6AAE7 /* right.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = right.jpeg; path = "/Users/tomasero/Library/Mobile Documents/com~apple~CloudDocs/Documents/MIT/Spring19/research/byte.it/GestureClassifieriOS/GestureClassifier/right.jpeg"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,18 +77,22 @@
 		08EB7420225D30B00079FFD5 /* GestureClassifier */ = {
 			isa = PBXGroup;
 			children = (
+				FF8C3797226EAE6D00D6AAE7 /* front.jpeg */,
+				FF8C3796226EAE6D00D6AAE7 /* left.jpeg */,
+				FF8C3799226EAE6E00D6AAE7 /* right.jpeg */,
+				FF8C3798226EAE6D00D6AAE7 /* teeth.jpeg */,
 				08EB7421225D30B00079FFD5 /* AppDelegate.swift */,
 				08EB7423225D30B00079FFD5 /* ViewController.swift */,
 				08B142952267A09C0012D326 /* Helper.swift */,
 				08B142A72268FEB60012D326 /* RTClassifier.swift */,
 				08B1429D2267C5210012D326 /* Evaluate.swift */,
 				08EB7425225D30B00079FFD5 /* Main.storyboard */,
-				FF1DB8C7226D341100E9A87E /* teeth.png */,
 				08EB7428225D30B30079FFD5 /* Assets.xcassets */,
 				08B1429B2267ADE50012D326 /* KNNDTW.swift */,
 				08B1429F2268F8570012D326 /* ExoEarController.swift */,
 				08EB742A225D30B30079FFD5 /* LaunchScreen.storyboard */,
 				08EB742D225D30B30079FFD5 /* Info.plist */,
+				FF8C3794226E8E8800D6AAE7 /* AudioViewController.swift */,
 			);
 			path = GestureClassifier;
 			sourceTree = "<group>";
@@ -143,10 +155,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF8C379A226EAF8300D6AAE7 /* front.jpeg in Resources */,
+				FF8C379B226EAF8300D6AAE7 /* left.jpeg in Resources */,
+				FF8C379C226EAF8300D6AAE7 /* right.jpeg in Resources */,
+				FF8C379D226EAF8300D6AAE7 /* teeth.jpeg in Resources */,
 				08EB742C225D30B30079FFD5 /* LaunchScreen.storyboard in Resources */,
 				08E0C484226148BB00E2ACAC /* data_csv in Resources */,
 				08EB7429225D30B30079FFD5 /* Assets.xcassets in Resources */,
-				FF1DB8C8226D341100E9A87E /* teeth.png in Resources */,
 				08EB7427225D30B00079FFD5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -163,6 +178,7 @@
 				08B1429E2267C5210012D326 /* Evaluate.swift in Sources */,
 				08EB7422225D30B00079FFD5 /* AppDelegate.swift in Sources */,
 				08B142A82268FEB60012D326 /* RTClassifier.swift in Sources */,
+				FF8C3795226E8E8800D6AAE7 /* AudioViewController.swift in Sources */,
 				08B1429C2267ADE50012D326 /* KNNDTW.swift in Sources */,
 				08B142962267A09C0012D326 /* Helper.swift in Sources */,
 			);
