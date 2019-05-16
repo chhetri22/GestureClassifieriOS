@@ -23,7 +23,7 @@ public class RTClassifier: NSObject {
     var currentIndexInPredictionWindow = 0
     var sampleBuffer:SampleBuffer = SampleBuffer(number: 0, count: ModelConstants.predictionWindowSize)
     let realtimeSample:Sample = Sample(number:0)
-    var distanceThreshold:Float = 1000
+    var distanceThreshold:Float = 1000000
     
     var sample = Sample(number:0)
     
@@ -47,7 +47,7 @@ public class RTClassifier: NSObject {
         if training_samples.count < 6 {
             return "Need more training data"
         }
-        print("Hold on...")
+
         
         var prediction:knn_certainty_label_pair
         
@@ -56,19 +56,17 @@ public class RTClassifier: NSObject {
         } else {
             prediction  = knn.predict(curveToTestAccX: self.sample.accX, curveToTestAccY: self.sample.accY, curveToTestAccZ: self.sample.accZ, curveToTestGyrX: self.sample.gyrX, curveToTestGyrY: self.sample.gyrY, curveToTestGyrZ: self.sample.gyrZ)
         }
-
-        
-        print("predicted " + prediction.label, "with ", prediction.probability*100,"% certainty", "minDistance: ",prediction.minDistance)
-        
-        print("Begin Gesture Now...")
         
         if realtime {
             if prediction.minDistance < self.distanceThreshold {
+                print("predicted " + prediction.label, "with ", prediction.probability*100,"% certainty", "minDistance: ",prediction.minDistance)
                 return prediction.label
+                
             } else {
                 return "None"
             }
         } else {
+            print("predicted " + prediction.label, "with ", prediction.probability*100,"% certainty", "minDistance: ",prediction.minDistance)
             return prediction.label
         }
         
@@ -158,7 +156,7 @@ public class RTClassifier: NSObject {
             
             self.currentIndexInPredictionWindow += 1
             
-            if self.currentIndexInPredictionWindow % ModelConstants.predictionWindowSize/2 == 0 || self.currentIndexInPredictionWindow > ModelConstants.predictionWindowSize/2+1 {
+            if self.currentIndexInPredictionWindow % (ModelConstants.predictionWindowSize/2) == 0 && self.currentIndexInPredictionWindow > (ModelConstants.predictionWindowSize/2)+1 {
                 
                 var accX = self.sampleBuffer.accX.getArray()
                 let maxAccX = accX.max()
