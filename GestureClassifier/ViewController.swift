@@ -28,6 +28,9 @@ public class ViewController: UIViewController {
     @IBOutlet weak var front1: UIButton!
     @IBOutlet weak var front2: UIButton!
     @IBOutlet weak var front3: UIButton!
+    @IBOutlet weak var none1: UIButton!
+    @IBOutlet weak var none2: UIButton!
+    @IBOutlet weak var none3: UIButton!
     @IBOutlet weak var recordBtn: UIButton!
     @IBOutlet weak var selSampleLbl: UILabel!
     @IBOutlet weak var trainBtn: UIButton!
@@ -64,7 +67,7 @@ public class ViewController: UIViewController {
     }
     
     func setupButtons() {
-        let btns = [self.left1, self.left2, self.left3, self.right1, self.right2, self.right3, self.front1, self.front2, self.front3]
+        let btns = [self.left1, self.left2, self.left3, self.right1, self.right2, self.right3, self.front1, self.front2, self.front3, self.none1, self.none2, self.none3]
         for btn in btns {
             btn!.backgroundColor = UIColor.white
             btn!.layer.borderColor = UIColor.black.cgColor
@@ -121,7 +124,7 @@ public class ViewController: UIViewController {
         startVBatUpdate()
     }
     
-    var cmds = ["l": "left", "r": "right", "f": "front"]
+    var cmds = ["l": "left", "r": "right", "f": "front","n": "none"]
     var activeBtn: UIButton?
     @IBAction func selectSample(_ sender: UIButton) {
         if let id = sender.restorationIdentifier {
@@ -180,7 +183,7 @@ public class ViewController: UIViewController {
     }
     
     @IBAction func trainGestures(_ sender: UIButton) {
-        let btns = [self.left1, self.left2, self.left3, self.right1, self.right2, self.right3, self.front1, self.front2, self.front3]
+        let btns = [self.left1, self.left2, self.left3, self.right1, self.right2, self.right3, self.front1, self.front2, self.front3, self.none1, self.none2, self.none3]
         for btn in btns {
             if btn!.backgroundColor != UIColor.darkGray {
                 let alert = UIAlertController(title: "Please record all samples", message: "", preferredStyle: .alert)
@@ -213,10 +216,11 @@ public class ViewController: UIViewController {
     
     var isContinuous = false
     @IBAction func doContinuous(_ sender: UIButton) {
+        print("pressed continious")
         if !isContinuous {
             sender.setTitle("Stop", for: .normal)
 //            classifier.startRecording()
-            classifier.runRealTime(sizeOfBuffer: 100)
+            let result = classifier.runRealTime(sizeOfBuffer: 50)
             isContinuous = true
         } else {
             isContinuous = false

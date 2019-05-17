@@ -167,6 +167,30 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="n1" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GXR-tx-rOZ">
+                                <rect key="frame" x="109" y="503" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="selectSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QaQ-m7-35m"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="n2" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="akg-Cj-z5w">
+                                <rect key="frame" x="167" y="503" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="selectSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bL4-bs-aXC"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="n3" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KP3-ML-EeT">
+                                <rect key="frame" x="225" y="503" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="selectSample:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aKm-HR-t4c"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -191,6 +215,9 @@
                         <outlet property="left1" destination="ojV-4F-hsh" id="Wvp-wY-oAG"/>
                         <outlet property="left2" destination="SaA-74-ypf" id="leQ-E2-bUz"/>
                         <outlet property="left3" destination="Cy9-V9-QRq" id="Tsc-jf-L7p"/>
+                        <outlet property="none1" destination="GXR-tx-rOZ" id="dKm-jb-ERC"/>
+                        <outlet property="none2" destination="akg-Cj-z5w" id="WXi-Od-Zx6"/>
+                        <outlet property="none3" destination="KP3-ML-EeT" id="m0a-JE-1YK"/>
                         <outlet property="recordBtn" destination="eZu-vS-MkM" id="l0x-5P-ByN"/>
                         <outlet property="right1" destination="qbj-qr-c87" id="lhc-kQ-nnr"/>
                         <outlet property="right2" destination="sLc-ZO-JQ7" id="TaR-rS-S2O"/>

@@ -58,7 +58,12 @@ public class RTClassifier: NSObject {
         }
         
         if realtime {
-            if prediction.minDistance < self.distanceThreshold {
+//            print("minDistance: ", prediction.minDistance)
+//            print("dist threshold: ", self.distanceThreshold)
+//            print("prediction: ", prediction.label)
+//            print("prediction probability: ", prediction.probability)
+//            if prediction.minDistance < self.distanceThreshold {
+            if prediction.label != "none" {
                 print("predicted " + prediction.label, "with ", prediction.probability*100,"% certainty", "minDistance: ",prediction.minDistance)
                 return prediction.label
                 
@@ -103,7 +108,7 @@ public class RTClassifier: NSObject {
             let properLabel = label.components(separatedBy: "-")[0]
             self.training_samples.append(knn_curve_label_pair(curveAccX: sample.accX, curveAccY: sample.accY, curveAccZ: sample.accZ , curveGyrX: sample.gyrX,curveGyrY: sample.gyrY, curveGyrZ: sample.gyrZ, label: properLabel))
         }
-        if training_samples.count < 9 {
+        if training_samples.count < 12 {
             print("ERROR: Need more training data")
         } else {
             self.knn.train(data_sets: self.training_samples)
@@ -148,47 +153,50 @@ public class RTClassifier: NSObject {
             let data = exoEar.getData()
 //            print(data)
             self.sampleBuffer.accX.write(element: Float(data[0].0))
-            self.sampleBuffer.accX.write(element: Float(data[0].1))
-            self.sampleBuffer.accX.write(element: Float(data[0].2))
-            self.sampleBuffer.accX.write(element: Float(data[1].0))
-            self.sampleBuffer.accX.write(element: Float(data[1].1))
-            self.sampleBuffer.accX.write(element: Float(data[1].2))
+//            print(data[0].0)
+            self.sampleBuffer.accY.write(element: Float(data[0].1))
+            self.sampleBuffer.accZ.write(element: Float(data[0].2))
+            self.sampleBuffer.gyrX.write(element: Float(data[1].0))
+            self.sampleBuffer.gyrY.write(element: Float(data[1].1))
+            self.sampleBuffer.gyrZ.write(element: Float(data[1].2))
             
             self.currentIndexInPredictionWindow += 1
             
             if self.currentIndexInPredictionWindow % (ModelConstants.predictionWindowSize/2) == 0 && self.currentIndexInPredictionWindow > (ModelConstants.predictionWindowSize/2)+1 {
-                
+    
                 var accX = self.sampleBuffer.accX.getArray()
-                let maxAccX = accX.max()
-                accX = accX.map{$0/maxAccX!}
+//                print(accX)
+//                let maxAccX = accX.max()
+//                accX = accX.map{$0/maxAccX!}
                 self.realtimeSample.accX = accX
                 
                 var accY = self.sampleBuffer.accY.getArray()
-                let maxAccY = accY.max()
-                accY = accY.map{$0/maxAccY!}
+//                let maxAccY = accY.max()
+//                accY = accY.map{$0/maxAccY!}
                 self.realtimeSample.accY = accY
                 
                 var accZ = self.sampleBuffer.accZ.getArray()
-                let maxAccZ = accZ.max()
-                accZ = accZ.map{$0/maxAccZ!}
+//                let maxAccZ = accZ.max()
+//                accZ = accZ.map{$0/maxAccZ!}
                 self.realtimeSample.accZ = accZ
                 
                 var gyrX = self.sampleBuffer.gyrX.getArray()
-                let maxGyrX = gyrX.max()
-                gyrX = gyrX.map{$0/maxGyrX!}
+//                let maxGyrX = gyrX.max()
+//                gyrX = gyrX.map{$0/maxGyrX!}
                 self.realtimeSample.gyrX = gyrX
                 
                 var gyrY = self.sampleBuffer.gyrY.getArray()
-                let maxGyrY = gyrY.max()
-                gyrY = gyrY.map{$0/maxGyrY!}
+//                let maxGyrY = gyrY.max()
+//                gyrY = gyrY.map{$0/maxGyrY!}
                 self.realtimeSample.gyrY = gyrY
                 
                 var gyrZ = self.sampleBuffer.gyrZ.getArray()
-                let maxGyrZ = gyrZ.max()
-                gyrZ = gyrZ.map{$0/maxGyrZ!}
+//                let maxGyrZ = gyrZ.max()
+//                gyrZ = gyrZ.map{$0/maxGyrZ!}
                 self.realtimeSample.gyrZ = gyrZ
                 
                 result = self.performModelPrediction(realtime: true)!
+                
             }
         }
         return result

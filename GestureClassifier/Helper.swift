@@ -58,7 +58,7 @@ class Helper{
                 sample.gyrZ.append(rowArray[5]!)
             }
         }
-        sample.normalizeVals()
+//        sample.normalizeVals()
     }
     static func createDataDict(path:String) -> Dictionary<String, Participant> {
         var data: [String: Participant] = [:]
