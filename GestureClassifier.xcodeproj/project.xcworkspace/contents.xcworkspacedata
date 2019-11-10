@@ -2,18 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/tomasero/Library/Mobile Documents/com~apple~CloudDocs/Documents/MIT/Spring19/research/byte.it/GestureClassifieriOS/GestureClassifier/front.jpeg">
-   </FileRef>
-   <FileRef
-      location = "group:/Users/tomasero/Library/Mobile Documents/com~apple~CloudDocs/Documents/MIT/Spring19/research/byte.it/GestureClassifieriOS/GestureClassifier/left.jpeg">
-   </FileRef>
-   <FileRef
-      location = "group:/Users/tomasero/Library/Mobile Documents/com~apple~CloudDocs/Documents/MIT/Spring19/research/byte.it/GestureClassifieriOS/GestureClassifier/right.jpeg">
-   </FileRef>
-   <FileRef
-      location = "group:/Users/tomasero/Library/Mobile Documents/com~apple~CloudDocs/Documents/MIT/Spring19/research/byte.it/GestureClassifieriOS/GestureClassifier/teeth.jpeg">
-   </FileRef>
-   <FileRef
       location = "self:">
    </FileRef>
 </Workspace>
